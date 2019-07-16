@@ -1,0 +1,50 @@
+<!--index.wxml-->
+<view>
+	<view class='search-bar'>
+		<l-search-bar placeholder='你想找点儿啥？~'/>
+	</view>
+
+	<view class='news-card'>
+		<l-card  type="primary" 
+           l-img-class="news-cover" 
+           position="right" 
+						image="http://p3.pstatp.com/large/pgc-image/152032717533441a89fe83f.png"
+    title="放暑假啦~">
+    <view class="news-content-container">
+      <text class='news-content'>
+				你准备怎样度过暑假呢?
+				各小组都有对应的学习任务哟 ~
+			</text>
+			<view class='news-action'>
+				点击下方<text>"我的任务"</text>查看吧！
+			</view>
+    </view>
+  	</l-card>
+	</view>
+
+  <l-grid show-row-border="false" show-col-border="true">
+    <l-grid-item key='calendar' slot='calendar'>
+			<view class='grid-item' > 
+				<l-icon name="time" /> 
+				<view class='grid-label'>工作日程</view>
+			</view>
+    </l-grid-item>
+		<l-grid-item key='tasks' slot='tasks'>
+			<view class='grid-item' > 
+				<l-icon name="order" /> 
+				<view class='grid-label'>我的任务</view>
+			</view>
+    </l-grid-item>
+		<l-grid-item key='discuss' slot='discuss'>
+			<view class='grid-item' > 
+				<l-icon name="comment" /> 
+				<view class='grid-label'>讨论区</view>
+			</view>
+    </l-grid-item>
+  </l-grid>
+
+	<view class='action-list'>
+		<l-list title="展讲轮值表" icon="history" tag-content="NEW" tag-color="#F4516c" />
+		<l-list title="评价打分器" icon="success"/>
+	</view>
+</view>

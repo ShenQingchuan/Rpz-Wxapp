@@ -1,0 +1,30 @@
+/**index.wxss**/
+
+.grid-item {
+	font-size: 12px;
+}
+.grid-label {
+	padding-top: 5px;
+}
+.search-bar {
+	margin-bottom: 5px;
+}
+.news-card {
+	margin: 10px 0;
+}
+.news-cover {
+	border-radius: 15px;
+	object-fit: cover;
+}
+.news-content-container {
+	font-size: 13px;
+	color: gray;
+}
+.news-action text{
+	font-weight: bold;
+	color: black;
+}
+
+.action-list {
+	padding: 15px;
+}

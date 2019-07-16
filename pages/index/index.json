@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "l-grid": "../miniprogram_npm/lin-ui/grid",
+    "l-grid-item": "../miniprogram_npm/lin-ui/grid-item",
+    "l-icon": "../miniprogram_npm/lin-ui/icon",
+		"l-search-bar": "../miniprogram_npm/lin-ui/search-bar",
+		"l-card": "../miniprogram_npm/lin-ui/card",
+		"l-list": "../miniprogram_npm/lin-ui/list"
+  }
+}
