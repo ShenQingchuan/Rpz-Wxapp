@@ -1,0 +1,5 @@
+/* components/action-list/index.wxss */
+.action-list {
+	padding: 25rpx;
+}
+

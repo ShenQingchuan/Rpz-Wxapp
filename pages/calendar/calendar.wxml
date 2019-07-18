@@ -1,2 +1,16 @@
 <!--pages/calendar/calendar.wxml-->
-<text>pages/calendar/calendar.wxml</text>
+<view class='calendar-page'>
+	<rpz-calendar
+  calendarConfig="{{calendarConfig}}"
+  bind:afterTapDay="afterTapDay"
+  bind:whenChangeMonth="whenChangeMonth"
+  bind:onTapDay="onTapDay"
+  bind:afterCalendarRender="afterCalendarRender"
+	></rpz-calendar>
+</view>
+
+<view class='calendar-steps'>
+	<l-steps direction="column">
+		<l-step title="周常博文 - 0x0001" describe="7月28日 21:00 截止"></l-step>
+	</l-steps>
+</view>

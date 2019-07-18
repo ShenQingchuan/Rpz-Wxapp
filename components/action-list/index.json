@@ -1,0 +1,6 @@
+{
+	"component": true,
+	"usingComponents": {
+		"l-list": "../miniprogram_npm/lin-ui/list"
+	}
+}

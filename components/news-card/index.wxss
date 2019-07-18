@@ -1,0 +1,20 @@
+/* components/news-card/news-card.wxss */
+
+.news-card {
+	margin: 20rpx 0;
+}
+.news-cover {
+	border-radius: 25rpx;
+	object-fit: cover;
+}
+.news-content-container {
+	font-size: 23rpx;
+	color: gray;
+}
+.news-action {
+	margin-top: 30rpx;
+}
+.news-action text{
+	font-weight: bold;
+	color: black;
+}

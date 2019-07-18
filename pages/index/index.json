@@ -4,7 +4,9 @@
     "l-grid-item": "../miniprogram_npm/lin-ui/grid-item",
     "l-icon": "../miniprogram_npm/lin-ui/icon",
 		"l-search-bar": "../miniprogram_npm/lin-ui/search-bar",
-		"l-card": "../miniprogram_npm/lin-ui/card",
-		"l-list": "../miniprogram_npm/lin-ui/list"
+		"l-button": "../miniprogram_npm/lin-ui/button",
+		"l-avatar": "../miniprogram_npm/lin-ui/avatar",
+		"rpz-news-card": "/components/news-card/index",
+		"rpz-action-list": "/components/action-list/index"
   }
 }

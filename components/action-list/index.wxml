@@ -1,0 +1,7 @@
+<!--components/action-list/index.wxml-->
+<view class='action-list'>
+	<l-list wx:key="al_key"
+	wx:for="{{actions}}" title="{{item['title']}}" icon="{{item['icon']}}" 
+	tag-content="{{item['tag-content']}}" 
+	tag-color="{{item['tag-color']}}" />
+</view>

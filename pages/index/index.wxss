@@ -1,30 +1,20 @@
 /**index.wxss**/
 
 .grid-item {
-	font-size: 12px;
+	font-size: 22rpx;
 }
 .grid-label {
-	padding-top: 5px;
+	padding-top: 15rpx;
 }
 .search-bar {
-	margin-bottom: 5px;
+	margin-bottom: 15rpx;
 }
-.news-card {
-	margin: 10px 0;
-}
-.news-cover {
-	border-radius: 15px;
-	object-fit: cover;
-}
-.news-content-container {
-	font-size: 13px;
-	color: gray;
-}
-.news-action text{
-	font-weight: bold;
-	color: black;
-}
-
 .action-list {
-	padding: 15px;
+	padding: 25rpx;
+}
+.user-avatar {
+	text-align: center;
+	padding: 10rpx;
+	display: flex;
+	justify-content: center;
 }

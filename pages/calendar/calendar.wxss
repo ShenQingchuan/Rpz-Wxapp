@@ -1,1 +1,5 @@
 /* pages/calendar/calendar.wxss */
+.calendar-steps {
+	padding-top: 30rpx;
+}
+

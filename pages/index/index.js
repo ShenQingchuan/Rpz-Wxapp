@@ -4,18 +4,14 @@ const app = getApp()
 
 Page({
   data: {
-    today: '',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
   },
   //事件处理函数
   onLoad: function () {
-		let dateString = new Date().toLocaleDateString();
-		console.log(dateString);
     if (app.globalData.userInfo) {
       this.setData({
-				today: dateString,
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       });
@@ -41,12 +37,26 @@ Page({
       })
     }
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  }
+  getUserInfo: e => {
+    if(this.data.userInfo === undefined) {
+			app.globalData.userInfo = e.detail.userInfo
+			this.setData({
+				userInfo: e.detail.userInfo,
+				hasUserInfo: true
+			});
+		}
+
+		this.onLoad();
+  },
+
+	//路由跳转函数
+	toCalendar(){
+		wx.navigateTo({
+			url: '/pages/calendar/calendar',
+		});
+	},
+
+	onReady(){
+		
+	},
 })
