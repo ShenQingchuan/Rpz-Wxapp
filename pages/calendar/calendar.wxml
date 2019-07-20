@@ -9,8 +9,9 @@
 	></rpz-calendar>
 </view>
 
-<view class='calendar-steps'>
-	<l-steps direction="column">
-		<l-step title="周常博文 - 0x0001" describe="7月28日 21:00 截止"></l-step>
-	</l-steps>
+<view class="calendar-todos">
+	<l-card plaintext title="周常博文第一期" >
+		<view class="content">本周主要的内容是数据结构的第一、二章节</view>
+		<view class="deadline"> 7月28日 21:00 截止 </view>
+  </l-card>
 </view>

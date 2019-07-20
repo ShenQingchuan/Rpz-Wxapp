@@ -18,7 +18,17 @@ Page({
        * 注意：若想初始化时不默认选中当天，则将该值配置为除 undefined 以外的其他非值即可，如：空字符串, 0 ,false等。
       */
 			noDefault: false, // 初始化后是否自动选中当天日期，优先级高于defaultDay配置，两者请勿一起配置
-		}
+		},
+
+		// 因为我们是直接请求加载当前月份的所有工作日程数据
+		// 所以需要得到：日历初渲染时（刚进入本页面时）的年月
+		initYear: 0,
+		initMonth: 0,
+
+		// 请求拿到数据之后必须先存放在 data Object中
+		// 这个数据不能再 afterCalendarRender 日历渲染时使用
+		curMonth_todos: []	// 必须是数组类型
+
 	},
 
 	/**
@@ -32,12 +42,16 @@ Page({
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady: function () {
+		// 1. 让日历上能打上圈圈
+		// 从 api 拿到的单条 todo 到数据格式应该是:
+		// { "todo-id": Number, "date": { year: Number, month: Number, day:Number }, "todo-title": String, "todo-deadline": String }
+		// for each 把每一条的 date Object push 进 todo_days 数组
+		let todo_days = [ { year: 2019, month: 7, day: 28 } ];
+		
 		this.calendar.setTodoLabels({
 			// 待办圆圈标记设置（如圆圈标记已签到日期），该设置与点标记设置互斥
 			circle: true,
-			days: [
-				{ year: 2019, month: 7, day: 28,}
-			],
+			days: todo_days,
 		});
 	},
 
@@ -91,6 +105,7 @@ Page({
    */
   afterTapDay(e) {
 		// => { currentSelect: {}, allSelectedDays: [] }
+		
 	},
   /**
    * 当改变月份时触发
@@ -111,6 +126,10 @@ Page({
    * 日历初次渲染完成后触发事件，如设置事件标记
    */
 	afterCalendarRender(e) {
-		
+		console.log(e.detail.data.calendar);
+		this.setData({
+			initYear: e.detail.data.calendar.curYear,
+			initMonth: e.detail.data.calendar.curMonth
+		});
 	}
 })

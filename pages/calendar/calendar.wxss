@@ -1,5 +1,15 @@
 /* pages/calendar/calendar.wxss */
-.calendar-steps {
+.calendar-todos {
 	padding-top: 30rpx;
 }
 
+.content {
+	font-size: 30rpx;
+	padding-bottom: 40rpx;
+	font-weight: bold;
+	color: lightslategray;
+}
+.deadline {
+	color: #13227a;
+	font-size: 25rpx;
+}

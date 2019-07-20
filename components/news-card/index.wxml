@@ -1,8 +1,8 @@
 <!--components/news-card/news-card.wxml-->
 <view class='news-card'>
 	<l-card  type="primary" 
-					l-img-class="news-cover" 
 					position="right" 
+					l-img-class="news-cover" 
 					image="{{cover_url}}"
 	title="放暑假啦~">
 	<view class="news-content-container">
