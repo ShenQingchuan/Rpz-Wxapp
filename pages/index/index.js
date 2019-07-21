@@ -5,7 +5,6 @@ const app = getApp()
 Page({
   data: {
     userInfo: {},
-		user_openid: '',
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
   },
@@ -46,6 +45,7 @@ Page({
 		});
 	},
 
+	//页面准备就绪时的生命周期函数：
 	onReady(){
 
 		// 检查 session 过期与否
@@ -64,8 +64,9 @@ Page({
 
 
 	// 根据解析得到的 openid数据 写入本页面对象的 AppData
-	// 本方法能确保 AppData 中有正确的用户 openid 字符串
+	// 本方法能确保 index 页面的 AppData 中、本地 wxStorage 有正确的用户 openid 字符串
 	getOpenID() {
+		let app = getApp();
 		if (wx.getStorageSync('openid').length == 0) {
 			wx.login({
 				success: (res) => {    //请求自己后台获取用户openid
@@ -80,11 +81,9 @@ Page({
 						},
 						success: response => {
 							let openid = response.data.bundle_data.openid;
-							//可以把openid存到本地，方便以后调用
+							//可以把openid存到本地缓存，方便以后调用
 							wx.setStorageSync('openid', openid);
-							this.setData({
-								user_openid: openid
-							});
+							app.globalData.user_openid = openid;
 						},
 						fail: error => {
 							console.log('[ERROR] - openid 解析失败...');
@@ -94,9 +93,7 @@ Page({
 			});
 		}
 		else {
-			this.setData({
-				user_openid: wx.getStorageSync('openid')
-			});
+			app.globalData.user_openid = wx.getStorageSync('openid');
 		}
 	},
 

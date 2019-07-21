@@ -24,12 +24,18 @@
 	width: 550rpx;
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 }
-.access-access-label {
+.addNewTodo-access-label {
 	text-align: center;
 	font-size: 35rpx;
 	color: #303f9f;
 	font-weight: bold;
+}
+.addNewTodo-access-radio-item{
+	font-weight: bold;
+	font-size: 38rpx;
+	margin: 13rpx;
 }
 .addNewTodo-access-description {
 	display: flex;

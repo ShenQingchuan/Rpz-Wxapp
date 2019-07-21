@@ -4,22 +4,27 @@
 	 l-title-class="addNewTodo-card-title" >
 		<view class="addNewTodo-card-content">
 			<!-- 几个TODO待办日程的基本属性 -->
-			<l-input label="日程标题" width="550" 
-			 placeholder="请输入标题"  />
-			<l-input label="日程描述" width="550" 
-			 placeholder="请输入描述"  />
-			<l-input label="截止年份" width="550" 
-			 type="number"  placeholder="请输入 year"  />
-			<l-input label="截止月份" width="550" 
-			 type="number"  placeholder="请输入 month"  />
-			<l-input label="截止日期" width="550" 
-			 type="number"  placeholder="请输入 day"  />
+			<l-input label="日程标题" width="550" value="{{title}}" bind:linchange="inputTitle" required
+			 placeholder="标题为2到20个字" rules="{{title_rule}}" bind:linvalidate="validate" />
+			<l-input label="日程描述" width="550" value="{{content}}" bind:linchange="inputContent" required
+			 placeholder="描述为65个字以下" rules="{{content_rule}}" bind:linvalidate="validate" />
+			<l-input label="截止年份" width="550" rules="{{year_rule}}" bind:linvalidate="validate" required
+			 type="number"  placeholder="请输入 year" value="{{year}}" bind:linchange="inputYear" />
+			<l-input label="截止月份" width="550" rules="{{month_rule}}" bind:linvalidate="validate" required
+			 type="number"  placeholder="请输入 month" value="{{month}}" bind:linchange="inputMonth" />
+			<l-input label="截止日期" width="550" rules="{{day_rule}}" bind:linvalidate="validate" required
+			 type="number"  placeholder="请输入 day" value="{{day}}" bind:linchange="inputDay" />
+			 <l-input label="截止时间" width="550" rules="{{time_rule}}" bind:linvalidate="validate" required
+			 placeholder="格式 HH:MM" value="{{time}}" bind:linchange="inputTime" />
 
 			<!-- TODO待办事项的可见性访问控制属性 -->
 			<view class="addNewTodo-access-meta">
-				<view class="access-access-label"> ——— 访问控制 ——— </view>
-				<l-input label="访问类型" width="550" 
-				placeholder="请输入日程访问控制类型"/>
+				<view class="addNewTodo-access-label"> ——— 访问控制 ——— </view>
+				<l-radio-group current="{{null}}" bind:linchange="onChangeAccessType" >
+					<l-radio  value="public" l-class="addNewTodo-access-radio-item"/>
+					<l-radio  value="private" l-class="addNewTodo-access-radio-item"/>
+					<l-radio  value="group" l-class="addNewTodo-access-radio-item"/>
+				</l-radio-group>
 				
 				<view class="addNewTodo-access-description">
 					<text> public: 即公开日程，所有干事都将访问到 </text>
