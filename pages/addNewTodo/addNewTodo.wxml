@@ -27,13 +27,18 @@
 					<text> group: 即组内日程，同一小组能够访问到 </text>
 				</view>
 
-				<l-radio checked="{{accept_submit_license}}" 
-				l-class="addNewTodo-radio"
-				value="已经经过讨论,允许提交该日程" />
-				
-				<l-button size="long">提交日程</l-button>
+				<view class="addNewTodo-radio">
+					<l-radio-group bind:linchange="onChangeRadio">
+						<l-radio value="已经经过讨论,允许提交该日程" />
+					</l-radio-group>
+				</view>
+				<l-button bind:lintap="onNewTodoSubmit" size="long">提交日程</l-button>
 			</view>
 		</view>
 	</l-card>
 </view>
+
+<!-- toast 提示框的视图, 由JS控制弹出 -->
+<l-toast />
+
 

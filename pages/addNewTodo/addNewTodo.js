@@ -7,6 +7,7 @@ Page({
 	data: {
 		// 是否已经经过商议允许提交该日程, 对应单选框的 checked
 		accept_submit_license: false,
+		
 	},
 
 	/**
@@ -63,5 +64,28 @@ Page({
 	 */
 	onShareAppMessage: function () {
 
-	}
+	},
+
+	/**
+	 * 单选框组的点击事件：
+	 */
+	onChangeRadio(){
+		this.setData({
+			accept_submit_license: !this.accept_submit_license,
+		});
+	},
+
+	/**
+	 * 新日程的提交事件：
+	 */
+	onNewTodoSubmit(){
+		if(this.data.accept_submit_license === false) {
+			// 如果没有经过讨论、不允许提交日程，并 toast 警告
+			wx.lin.showToast({
+				title: '请确保日程提交前经过审议',
+				icon: 'error',
+				iconStyle: 'color: red; size: 60',
+			});
+		}
+	},
 })
