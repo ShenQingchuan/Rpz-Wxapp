@@ -1,3 +1,8 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+		"l-input": "../miniprogram_npm/lin-ui/input",
+		"l-card": "../miniprogram_npm/lin-ui/card",
+		"l-button": "../miniprogram_npm/lin-ui/button",
+		"l-radio": "../miniprogram_npm/lin-ui/radio"
+	}
 }

@@ -5,7 +5,8 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-
+		// 是否已经经过商议允许提交该日程, 对应单选框的 checked
+		accept_submit_license: false,
 	},
 
 	/**

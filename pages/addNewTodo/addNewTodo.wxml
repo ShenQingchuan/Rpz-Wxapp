@@ -1,5 +1,39 @@
 <!--pages/addNewTodo/addNewTodo.wxml-->
 <view class="addNewTodo-page-container">
-	
+	<l-card plaintext title="添加新的日程" l-class="addNewTodo-card"
+	 l-title-class="addNewTodo-card-title" >
+		<view class="addNewTodo-card-content">
+			<!-- 几个TODO待办日程的基本属性 -->
+			<l-input label="日程标题" width="550" 
+			 placeholder="请输入标题"  />
+			<l-input label="日程描述" width="550" 
+			 placeholder="请输入描述"  />
+			<l-input label="截止年份" width="550" 
+			 type="number"  placeholder="请输入 year"  />
+			<l-input label="截止月份" width="550" 
+			 type="number"  placeholder="请输入 month"  />
+			<l-input label="截止日期" width="550" 
+			 type="number"  placeholder="请输入 day"  />
+
+			<!-- TODO待办事项的可见性访问控制属性 -->
+			<view class="addNewTodo-access-meta">
+				<view class="access-access-label"> ——— 访问控制 ——— </view>
+				<l-input label="访问类型" width="550" 
+				placeholder="请输入日程访问控制类型"/>
+				
+				<view class="addNewTodo-access-description">
+					<text> public: 即公开日程，所有干事都将访问到 </text>
+					<text> private: 即私人日程，只有自己能够访问到 </text>
+					<text> group: 即组内日程，同一小组能够访问到 </text>
+				</view>
+
+				<l-radio checked="{{accept_submit_license}}" 
+				l-class="addNewTodo-radio"
+				value="已经经过讨论,允许提交该日程" />
+				
+				<l-button size="long">提交日程</l-button>
+			</view>
+		</view>
+	</l-card>
 </view>
 

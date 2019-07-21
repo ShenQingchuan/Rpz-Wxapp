@@ -1,6 +1,44 @@
 /* pages/addNewTodo/addNewTodo.wxss */
 .addNewTodo-page-container {
 	padding: 30rpx;
+	display: flex;
+}
+.addNewTodo-card {
+	display: flex;
+	flex-direction: column;
+}
+.addNewTodo-card-title {
+	font-weight: bolder;
 }
 
+.addNewTodo-card-content {
+	padding: 25rpx 10rpx;
+	width: 620rpx;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
 
+.addNewTodo-access-meta {
+	padding-top: 30rpx;
+	width: 550rpx;
+	display: flex;
+	flex-direction: column;
+}
+.access-access-label {
+	text-align: center;
+	font-size: 35rpx;
+	color: #303f9f;
+	font-weight: bold;
+}
+.addNewTodo-access-description {
+	display: flex;
+	margin-top: 20rpx;
+	flex-direction: column;
+	color: lightslategray;
+	font-size: 26rpx; font-weight: bold;
+}
+
+.addNewTodo-radio {
+	margin: 55rpx;
+}
