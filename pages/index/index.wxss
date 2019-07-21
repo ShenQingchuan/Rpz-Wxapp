@@ -9,7 +9,7 @@
 .search-bar {
 	margin-bottom: 15rpx;
 }
-.action-list {
+.action-list-container {
 	padding: 25rpx;
 }
 .user-avatar {
@@ -18,3 +18,4 @@
 	display: flex;
 	justify-content: center;
 }
+

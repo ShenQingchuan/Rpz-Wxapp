@@ -1,0 +1,6 @@
+/* pages/addNewTodo/addNewTodo.wxss */
+.addNewTodo-page-container {
+	padding: 30rpx;
+}
+
+

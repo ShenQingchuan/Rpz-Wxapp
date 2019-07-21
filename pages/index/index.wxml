@@ -11,7 +11,7 @@
 	</view>
 
 	<l-grid show-row-border="false" show-col-border="true">
-    <l-grid-item key='calendar' slot='calendar' bind:lintap="toCalendar">
+    <l-grid-item key='calendar' slot='calendar' bind:lintap="goCalendarPage">
 			<view class='grid-item' > 
 				<l-icon name="time" /> 
 				<view class='grid-label'>工作日程</view>
@@ -33,5 +33,7 @@
 
 	<rpz-news-card/>
 
-	<rpz-action-list />
+	<view class="action-list-container">
+		<rpz-action-list />
+	</view>
 </view>

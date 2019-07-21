@@ -1,7 +1,8 @@
 {
 	"pages": [
 		"pages/index/index",
-		"pages/calendar/calendar"
+		"pages/calendar/calendar",
+		"pages/addNewTodo/addNewTodo"
 	],
 	"window": {
 		"backgroundTextStyle": "light",

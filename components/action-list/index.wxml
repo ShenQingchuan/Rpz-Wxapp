@@ -1,7 +1,21 @@
 <!--components/action-list/index.wxml-->
-<view class='action-list'>
-	<l-list wx:key="al_key"
-	wx:for="{{actions}}" title="{{item['title']}}" icon="{{item['icon']}}" 
-	tag-content="{{item['tag-content']}}" 
-	tag-color="{{item['tag-color']}}" />
-</view>
+<l-tabs placement="left" style="height: 200rpx;">
+	<l-tabpanel tab="系统功能" key="sys_func" slot="sys_func">
+		<l-list wx:key="al_key" l-class="action-list-item"
+			wx:for="{{public_actions}}" 
+			title="{{item['title']}}" icon="{{item['icon']}}" 
+			tag-content="{{item['tag-content']}}" 
+			tag-color="{{item['tag-color']}}" />
+	</l-tabpanel>
+	<l-tabpanel tab="系统管理" key="sys_manage" slot="sys_manage">
+		<l-list wx:key="al_key" l-class="action-list-item"
+			wx:for="{{manage_actions}}"
+			title="{{item['title']}}" icon="{{item['icon']}}" 
+			url="{{item['url']}}"
+			tag-content="{{item['tag-content']}}" 
+			tag-color="{{item['tag-color']}}" />
+	</l-tabpanel>
+</l-tabs>
+
+
+

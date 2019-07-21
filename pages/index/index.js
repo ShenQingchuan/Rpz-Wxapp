@@ -40,7 +40,7 @@ Page({
   },
 
 	//路由跳转函数
-	toCalendar(){
+	goCalendarPage(){
 		wx.navigateTo({
 			url: '/pages/calendar/calendar',
 		});
@@ -69,6 +69,7 @@ Page({
 		if (wx.getStorageSync('openid').length == 0) {
 			wx.login({
 				success: (res) => {    //请求自己后台获取用户openid
+					console.log('INFO - 开始请求解析以取得openid');
 					wx.request({
 						method: 'GET',
 						url: 'http://localhost:9090/v1/openid',

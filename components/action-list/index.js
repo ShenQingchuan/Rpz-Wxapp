@@ -11,24 +11,39 @@ Component({
 	 * 组件的初始数据
 	 */
 	data: {
-		actions: [],
+		public_actions: [],
+		manage_actions: [],
 	},
 
 	/**
 	 * 组件的方法列表
 	 */
 	methods: {
-
+		
 	},
 
 	ready: function() {
 		this.setData({
-			actions: [
-				{ 'title': '展讲轮值表', 'icon': 'history',
-				 'tag-content': 'NEW', 'tag-color': '#F4516c'},
-				{ 'title': '评价打分器', 'icon': 'success', 
-				'tag-content': null, 'tag-color': null},
+			public_actions: [
+				{
+					'title': '展讲轮值表', 'icon': 'history',
+					'tag-content': 'NEW', 'tag-color': '#F4516c',
+					'url': null
+				},
+				{
+					'title': '评价打分器', 'icon': 'success',
+					'tag-content': null, 'tag-color': null,
+					'url': null
+				},
 			],
+
+			manage_actions: [
+				{
+					'title': '添加新的日程', 'icon': 'edit',
+					'tag-content': null, 'tag-color': null,
+					'url': '/pages/addNewTodo/addNewTodo'
+				},
+			]
 		})
 	}
 
