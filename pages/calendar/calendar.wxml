@@ -10,8 +10,13 @@
 </view>
 
 <view class="calendar-todos">
-	<l-card plaintext title="周常博文第一期" >
-		<view class="content">本周主要的内容是数据结构的第一、二章节</view>
-		<view class="deadline"> 7月28日 21:00 截止 </view>
+	<l-card wx:for="{{ curMonth_todos }}" wx:key="key" wx:for-item="item"
+	 plaintext title="{{item.title}}" >
+		<view class="content">{{ item.content }}</view>
+		<view class="deadline">{{ item.year+'年'+item.month+'月'+item.day+"日"+item.time+' 截止' }}</view>
   </l-card>
 </view>
+
+
+<!-- toast 提示框的视图, 由JS控制弹出 -->
+<l-toast />

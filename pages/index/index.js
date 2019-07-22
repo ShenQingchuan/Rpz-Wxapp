@@ -73,7 +73,7 @@ Page({
 					console.log('INFO - 开始请求解析以取得openid');
 					wx.request({
 						method: 'GET',
-						url: 'http://localhost:9090/v1/openid',
+						url: 'https://api.sicnurpz.online/v1/openid',
 						data: {
 							appid: 'wx811aaed72af43da5',
 							secret: '8b101090e568d97e266cf8a0d6d3028e',

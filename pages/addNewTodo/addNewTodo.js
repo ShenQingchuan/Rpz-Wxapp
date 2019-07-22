@@ -112,7 +112,7 @@ Page({
 		else {
 			let openid = wx.getStorageSync('openid');
 			wx.request({
-				url: 'http://localhost:9090/v1/todo',
+				url: 'https://api.sicnurpz.online/v1/todo',
 				method: 'POST',
 				data: {
 					title: this.data.title,
@@ -125,12 +125,24 @@ Page({
 					openid: app.globalData.user_openid
 				},
 				success: res => {
-					console.log(res);
+					//console.log(res);
+					wx.lin.showToast({
+						title: `新的日程记录添加成功！`,
+						icon: 'success',
+						iconStyle: 'color: cyan; size: 60',
+					});
+					this.clearForm();	// 清除已经提交后的表单
 				},
 				fail: err => {
-					console.log(err);
+					//console.log(err);
+					wx.lin.showToast({
+						title: '记录插入失败！',
+						icon: 'error',
+						iconStyle: 'color: red; size: 60',
+					});
 				}
 			});
+			
 		}
 	},
 

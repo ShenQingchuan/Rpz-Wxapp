@@ -1,6 +1,7 @@
 {
   "usingComponents": {
 		"rpz-calendar": "/components/calendar/index",
-		"l-card": "../miniprogram_npm/lin-ui/card"
+		"l-card": "../miniprogram_npm/lin-ui/card",
+		"l-toast": "../miniprogram_npm/lin-ui/toast"
 	}
 }

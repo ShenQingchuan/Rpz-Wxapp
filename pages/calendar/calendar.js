@@ -22,13 +22,74 @@ Page({
 
 		// 因为我们是直接请求加载当前月份的所有工作日程数据
 		// 所以需要得到：日历初渲染时（刚进入本页面时）的年月
-		initYear: 0,
-		initMonth: 0,
+		curYear: 0,
+		curMonth: 0,
 
 		// 请求拿到数据之后必须先存放在 data Object中
 		// 这个数据不能再 afterCalendarRender 日历渲染时使用
-		curMonth_todos: []	// 必须是数组类型
+		curMonth_todos: [],	// 必须是数组类型, 作为视图层 wx:for 渲染的来源
+		todo_days: [],	// 用于存放那些天是有 todo 的...
 
+	},
+
+	/**
+	 * 获取当前月份的日程信息 ajax 请求
+	 */
+	ajaxForCurrentMonthTodo() {
+		wx.request({
+			//url: 'http://localhost:9090/v1/todo',
+			url: 'https://api.sicnurpz.online/v1/todo',
+			method: 'GET',
+			data: {
+				openid: wx.getStorageSync('openid'),
+				curYear: this.data.curYear,
+				curMonth: this.data.curMonth,
+			},
+			success: res => {
+				console.log(res);
+				wx.lin.showToast({
+					title: '获取到如下日程信息',
+					icon: 'success',
+					iconStyle: 'color: cyan; size: 60',
+				});
+				// 更新当前月份的日程信息和 todo_days
+				let temp_todo_days = [];
+				for(let i=0; i<res.data.bundle_data.length; i++){
+					// 注意去重处理
+					if(temp_todo_days.indexOf(res.data.bundle_data[i]) === -1){
+						temp_todo_days.push({
+							year: res.data.bundle_data[i].year,
+							month: res.data.bundle_data[i].month,
+							day: res.data.bundle_data[i].day
+						});
+					}
+				}
+				
+				this.setData({
+					curMonth_todos: res.data.bundle_data,
+					todo_days: temp_todo_days
+				});
+
+				this.drawCircleToDate();
+			},
+			fail: err => {
+				console.log(err);
+				wx.lin.showToast({
+					title: '获取日程信息时发生错误！',
+					icon: 'error',
+					iconStyle: 'color: red; size: 60',
+				});
+			}
+		});
+	},
+
+	// 更新渲染给那些日期画圈圈
+	drawCircleToDate() {
+		this.calendar.setTodoLabels({
+			// 待办圆圈标记设置（如圆圈标记已签到日期），该设置与点标记设置互斥
+			circle: true,
+			days: this.data.todo_days,
+		});
 	},
 
 	/**
@@ -43,16 +104,8 @@ Page({
 	 */
 	onReady: function () {
 		// 1. 让日历上能打上圈圈
-		// 从 api 拿到的单条 todo 到数据格式应该是:
-		// { "todo-id": Number, "date": { year: Number, month: Number, day:Number }, "todo-title": String, "todo-deadline": String }
 		// for each 把每一条的 date Object push 进 todo_days 数组
-		let todo_days = [ { year: 2019, month: 7, day: 28 } ];
-		
-		this.calendar.setTodoLabels({
-			// 待办圆圈标记设置（如圆圈标记已签到日期），该设置与点标记设置互斥
-			circle: true,
-			days: todo_days,
-		});
+		this.ajaxForCurrentMonthTodo();
 	},
 
 	/**
@@ -114,6 +167,12 @@ Page({
    */
 	whenChangeMonth(e) {
 		// => { current: { month: 3, ... }, next: { month: 4, ... }}
+		// console.log(e);
+		this.setData({
+			curYear: e.detail.next.year,
+			curMonth: e.detail.next.month
+		});
+		this.ajaxForCurrentMonthTodo();
 	},
   /**
    * 日期点击事件（此事件会完全接管点击事件），需自定义配置 takeoverTap 值为真才能生效
@@ -128,8 +187,8 @@ Page({
 	afterCalendarRender(e) {
 		console.log(e.detail.data.calendar);
 		this.setData({
-			initYear: e.detail.data.calendar.curYear,
-			initMonth: e.detail.data.calendar.curMonth
+			curYear: e.detail.data.calendar.curYear,
+			curMonth: e.detail.data.calendar.curMonth
 		});
 	}
 })
