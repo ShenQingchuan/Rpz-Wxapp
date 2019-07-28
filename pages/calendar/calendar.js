@@ -37,8 +37,8 @@ Page({
 	 */
 	ajaxForCurrentMonthTodo() {
 		wx.request({
-			// url: 'http://localhost:9090/v1/todo',
-			url: 'https://api.sicnurpz.online/v1/todo',
+			// url: 'http://localhost:9090/v1/weixin/todo',
+			url: 'https://api.sicnurpz.online/v1/weixin/todo',
 			method: 'GET',
 			data: {
 				openid: wx.getStorageSync('openid'),
