@@ -112,6 +112,7 @@ Page({
 		else {
 			let openid = wx.getStorageSync('openid');
 			wx.request({
+				// url: 'http://localhost:9090/v1/todo',
 				url: 'https://api.sicnurpz.online/v1/todo',
 				method: 'POST',
 				data: {
