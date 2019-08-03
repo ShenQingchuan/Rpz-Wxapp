@@ -1,1 +1,18 @@
 <!--pages/speechSchedule/speechSchedule.wxml-->
+<view class="page-container">
+  <l-card type="primary" class="container"
+    plaintext="{{true}}"
+    title="📚 你当前的积分为:">
+    <view class="balance-count">
+      1890 分
+    </view>
+  </l-card>
+  
+  <l-card type="primary" class="container"
+    plaintext="{{true}}"
+    title="⏰ 下次展讲详情: ">
+    <view class="next-speech-info">
+      <l-countdown time="2019-09-15 20:00" />
+    </view>
+  </l-card>
+</view>

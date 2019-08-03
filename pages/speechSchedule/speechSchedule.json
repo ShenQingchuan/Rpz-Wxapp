@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "l-card": "../miniprogram_npm/lin-ui/card",
+    "l-countdown": "../miniprogram_npm/lin-ui/countdown"
+  }
 }
