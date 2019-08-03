@@ -28,7 +28,7 @@ Component({
 				{
 					'title': '展讲轮值表', 'icon': 'history',
 					'tag-content': 'NEW', 'tag-color': '#F4516c',
-					'url': null
+					'url': '/pages/speechSchedule/speechSchedule'
 				},
 				{
 					'title': '评价打分器', 'icon': 'success',

@@ -2,7 +2,8 @@
 	"pages": [
 		"pages/index/index",
 		"pages/calendar/calendar",
-		"pages/addNewTodo/addNewTodo"
+		"pages/addNewTodo/addNewTodo",
+		"pages/speechSchedule/speechSchedule"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
