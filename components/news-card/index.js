@@ -27,9 +27,9 @@ Component({
 	/* ready: 在组件在视图层布局完成后执行 */
 	ready: function(){
 		this.setData({
-			title: '放暑假啦！',
-			main_content: '你准备怎样度过暑假?\n各组都有对应的学习任务哟 ~',
-			action_content: '"我的任务"',
+      title: '欢迎使用 · 在计协',
+			main_content: '这是帮助计协干事成长的小工具，快来探索吧 ~',
+			action_content: '"菜单选项"',
 			cover_url: 'http://p3.pstatp.com/large/pgc-image/152032717533441a89fe83f.png'
 		});
 	}

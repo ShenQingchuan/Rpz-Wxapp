@@ -4,13 +4,13 @@
 					position="right" 
 					l-img-class="news-cover" 
 					image="{{cover_url}}"
-	title="放暑假啦~">
+	title="{{title}}">
 	<view class="news-content-container">
 		<text class='news-content'>
 			{{main_content}}
 		</text>
 		<view class='news-action'>
-			点击下方<text>{{action_content}}</text>查看吧！
+			点击下方的<text>{{action_content}}</text>试一试吧！
 		</view>
 	</view>
 	</l-card>

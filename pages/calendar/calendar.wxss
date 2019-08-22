@@ -13,3 +13,10 @@
 	color: #13227a;
 	font-size: 25rpx;
 }
+.todo-item-card {
+  margin-bottom: 30rpx !important;
+}
+.outofdate {
+  /* 指某日程已过期，让卡片变灰 */
+  background-color: gainsboro !important;
+}

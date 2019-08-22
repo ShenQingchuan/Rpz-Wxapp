@@ -1,3 +1,4 @@
+
 <!--pages/calendar/calendar.wxml-->
 <view class='calendar-page'>
 	<rpz-calendar
@@ -11,8 +12,17 @@
 
 <view class="calendar-todos">
 	<l-card wx:for="{{ curMonth_todos }}" wx:key="key" wx:for-item="item"
-	 plaintext title="{{item.title}}" >
-		<view class="content">{{ item.content }}</view>
+	 plaintext title="{{item.title}}" 
+   l-class="todo-item-card {{item.isOverDue ? 'outofdate':''}}" >
+		<view class="content">
+      <!-- 如果是私有日程要显示提示 -->
+      <l-tag wx:if="{{item.access_type === 'private'}}"
+      icon-size="20" icon-name="warning" icon-color="white"
+      bg-color="0b2d6dcf" size="large" shape="circle">
+        私有进程
+      </l-tag>
+      {{ item.content }}
+    </view>
 		<view class="deadline">{{ item.year+'年'+item.month+'月'+item.day+"日"+item.time+' 截止' }}</view>
   </l-card>
 </view>

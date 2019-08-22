@@ -29,6 +29,8 @@ Page({
 		// 这个数据不能再 afterCalendarRender 日历渲染时使用
 		curMonth_todos: [],	// 必须是数组类型, 作为视图层 wx:for 渲染的来源
 		todo_days: [],	// 用于存放那些天是有 todo 的...
+    // 把从api中查询过的某个月份的todos缓存进此cache对象当中
+    todos_cache: {},
 
 	},
 
@@ -36,6 +38,7 @@ Page({
 	 * 获取当前月份的日程信息 ajax 请求
 	 */
 	ajaxForCurrentMonthTodo() {
+    let that = this;
 		wx.request({
 			// url: 'http://localhost:9090/v1/weixin/todo',
 			url: 'https://api.sicnurpz.online/v1/weixin/todo',
@@ -52,7 +55,8 @@ Page({
 					icon: 'success',
 					iconStyle: 'color: cyan; size: 60',
 				});
-				// 更新当前月份的日程信息和 todo_days
+				
+        // 更新当前月份的日程信息和 todo_days，为标出是哪些天有待办事项做准备
 				let temp_todo_days = [];
 				for(let i=0; i<res.data.bundle_data.length; i++){
 					// 注意去重处理
@@ -64,13 +68,28 @@ Page({
 						});
 					}
 				}
-				
+        // 检查是否待办事项过期，如果其 isOverDue 应为 true 卡片会变灰
+        let temp_todo_objects = res.data.bundle_data;
+				for(let item of temp_todo_objects) {
+          item['isOverDue'] = that.isOverDue(item);
+        }
+
+        // 若当月有待办事项记录才添加缓存
+        if (temp_todo_objects.length > 0){
+          // 将本月份获取到的 todo 表加载到缓存对象中
+          let curMonthStamp = `${temp_todo_objects[0].year}-${temp_todo_objects[0].month}`;
+          this.data.todos_cache[curMonthStamp] = {
+            curMonth_todos: temp_todo_objects,
+            todo_days: temp_todo_days
+          };
+        }
+
+        // 设置数据的常规操作，并在日历上把有待办事项的日期打上圈圈
 				this.setData({
-					curMonth_todos: res.data.bundle_data,
+					curMonth_todos: temp_todo_objects,
 					todo_days: temp_todo_days
 				});
-
-				this.drawCircleToDate();
+        this.drawCircleToDate();
 			},
 			fail: err => {
 				console.log(err);
@@ -172,7 +191,21 @@ Page({
 			curYear: e.detail.next.year,
 			curMonth: e.detail.next.month
 		});
-		this.ajaxForCurrentMonthTodo();
+    let curMonthStamp = `${e.detail.next.year}-${e.detail.next.month}`;
+    let cache_unit = this.data.todos_cache[curMonthStamp];
+    
+    if(cache_unit === undefined) {
+      // 如果没有缓存这个月的todos就去给api发请求
+      this.ajaxForCurrentMonthTodo();
+    } else {
+      // 若有缓存则从缓存中读取
+      // console.log(cache_unit);
+      this.setData({
+        curMonth_todos: cache_unit.curMonth_todos,
+        todo_days: cache_unit.todo_days
+      });
+      this.drawCircleToDate();
+    }
 	},
   /**
    * 日期点击事件（此事件会完全接管点击事件），需自定义配置 takeoverTap 值为真才能生效
@@ -190,5 +223,15 @@ Page({
 			curYear: e.detail.data.calendar.curYear,
 			curMonth: e.detail.data.calendar.curMonth
 		});
-	}
+	},
+
+  // 若待办事项已过期，则应该卡片变灰色
+  isOverDue(item) {
+    let now = new Date();
+    let timestamp = `${item.year}/${item.month}/${item.day} ${item.time}:00`;
+    let deadline = new Date(timestamp);
+
+    return now > deadline;
+  }
+
 })
