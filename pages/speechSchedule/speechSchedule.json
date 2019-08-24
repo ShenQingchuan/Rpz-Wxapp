@@ -1,6 +1,8 @@
 {
   "usingComponents": {
     "l-card": "../miniprogram_npm/lin-ui/card",
-    "l-countdown": "../miniprogram_npm/lin-ui/countdown"
+    "l-countdown": "../miniprogram_npm/lin-ui/countdown",
+    "l-list": "../miniprogram_npm/lin-ui/list",
+    "loadmore": "../miniprogram_npm/lin-ui/loadmore"
   }
 }

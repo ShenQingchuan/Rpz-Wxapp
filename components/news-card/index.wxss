@@ -7,6 +7,9 @@
 	border-radius: 25rpx;
 	object-fit: cover;
 }
+.news-card-title {
+  font-weight: bold;
+}
 .news-content-container {
 	font-size: 23rpx;
 	color: gray;

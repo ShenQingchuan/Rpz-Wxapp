@@ -3,6 +3,7 @@
 	<l-card  type="primary" 
 					position="right" 
 					l-img-class="news-cover" 
+          l-title-class="news-card-title"
 					image="{{cover_url}}"
 	title="{{title}}">
 	<view class="news-content-container">
