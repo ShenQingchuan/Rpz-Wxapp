@@ -1,5 +1,27 @@
 /**index.wxss**/
 
+.above-mask {
+  z-index: 1000;
+}
+.if-truename-mask {
+  width:100%;
+  height:81.15%;
+  position:fixed;
+  background-color:#999;
+  z-index:999;
+  top:18.95%;
+  left:0;
+  box-shadow: 3px 3px 3px #999;
+  opacity:0.5;
+}
+.if-truename-ok {
+  top: 16%;
+}
+
+.truname-input-box {
+  margin-bottom: 30rpx;
+}
+
 .grid-item {
 	font-size: 22rpx;
 }

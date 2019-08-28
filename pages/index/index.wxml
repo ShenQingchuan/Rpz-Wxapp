@@ -1,39 +1,56 @@
 <!--index.wxml-->
 <view>
+  <view class="if-truename-mask" wx:if="{{inMask}}" bindtap="showMaskToast"></view>
+  <!-- 如果用户点击了还存在的遮罩，就提示他先去提交真实姓名 -->
+  <l-toast class="above-mask" />
+
 	<view class='user-avatar'>
 		<l-button class="avatar-btn" special="{{true}}"  >
     	<l-avatar open-data="{{['userAvatarUrl','userNickName']}}" />
 		</l-button>
 	</view>
 
-	<view class='search-bar'>
-		<l-search-bar placeholder='你想找点儿啥？~'/>
-	</view>
+  <view class="truname-input-box" wx:if="{{inMask}}">
+    <l-input label="真实姓名"  placeholder="请输入干事你的真实姓名" bind:linchange="onInputTrueName"
+    value="{{truename}}" required rules="{{truenameRules}}" bind:linvalidate="validate">
+      <l-button slot="right" type="default"
+      size="mini" bind:lintap="submitTrueName">
+        确定
+      </l-button>
+    </l-input>
+  </view>
 
-	<l-grid show-row-border="false" show-col-border="true">
-    <l-grid-item key='calendar' slot='calendar' bind:lintap="goCalendarPage">
-			<view class='grid-item' > 
-				<l-icon name="time" /> 
-				<view class='grid-label'>工作日程</view>
-			</view>
-    </l-grid-item>
-		<l-grid-item key='tasks' slot='tasks'>
-			<view class='grid-item' > 
-				<l-icon name="order" /> 
-				<view class='grid-label'>我的任务</view>
-			</view>
-    </l-grid-item>
-		<l-grid-item key='discuss' slot='discuss'>
-			<view class='grid-item' > 
-				<l-icon name="comment" /> 
-				<view class='grid-label'>讨论区</view>
-			</view>
-    </l-grid-item>
-  </l-grid>
+  <view class="if-truename-ok">
+    <view class='search-bar'>
+      <l-search-bar placeholder='你想找点儿啥？~'/>
+    </view>
 
-	<rpz-news-card/>
+    <l-grid show-row-border="false" show-col-border="true">
+      <l-grid-item key='calendar' slot='calendar' bind:lintap="goCalendarPage">
+        <view class='grid-item' > 
+          <l-icon name="time" /> 
+          <view class='grid-label'>工作日程</view>
+        </view>
+      </l-grid-item>
+      <l-grid-item key='tasks' slot='tasks'>
+        <view class='grid-item' > 
+          <l-icon name="order" /> 
+          <view class='grid-label'>我的任务</view>
+        </view>
+      </l-grid-item>
+      <l-grid-item key='discuss' slot='discuss'>
+        <view class='grid-item' > 
+          <l-icon name="comment" /> 
+          <view class='grid-label'>讨论区</view>
+        </view>
+      </l-grid-item>
+    </l-grid>
 
-	<view class="action-list-container">
-		<rpz-action-list />
-	</view>
+    <rpz-news-card/>
+
+    <view class="action-list-container">
+      <rpz-action-list />
+    </view>
+  </view>
+
 </view>

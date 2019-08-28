@@ -6,6 +6,9 @@
 		"l-search-bar": "../miniprogram_npm/lin-ui/search-bar",
 		"l-button": "../miniprogram_npm/lin-ui/button",
 		"l-avatar": "../miniprogram_npm/lin-ui/avatar",
+    "l-input": "../miniprogram_npm/lin-ui/input",
+    "l-toast": "../miniprogram_npm/lin-ui/toast",
+
 		"rpz-news-card": "/components/news-card/index",
 		"rpz-action-list": "/components/action-list/index"
   }

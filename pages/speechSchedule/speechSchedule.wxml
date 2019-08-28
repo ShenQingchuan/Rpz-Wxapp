@@ -23,7 +23,7 @@
   <l-card type="primary" class="container"
    plaintext="{{true}}" title="📂 展讲历史记录: ">
    <loadmore show="{{true}}" type="end" l-class=""
-    loading-text="正在加载呢 ~" end-text="也就讲了这么多了">
+    loading-text="正在加载呢 ~" end-text="也就讲过这么多了">
       <view class="speech-history-list" slot="content">
         <l-list title="主题在这里" desc="计协君 2019/09/10 14:00-16:00"
         l-class-desc="speech-history-desc" />
