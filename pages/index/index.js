@@ -92,11 +92,12 @@ Page({
 							code: res.code
 						},
 						success: response => {
+              console.log(response);
 							let openid = response.data.bundle_data.wx_bundle.openid;
-              if (response.data.bundle_data.officer_status) {
+              if (response.data.bundle_data.officer_realname_status) {
                 // 如果 后端mongodb中该干事实名信息已存在
                 this.setData({
-                  inMask: !response.data.bundle_data.officer_status
+                  inMask: !response.data.bundle_data.officer_realname_status
                 }); // 取消遮罩
                 wx.setStorageSync('truename', 'any:yes');
               }
@@ -129,7 +130,6 @@ Page({
 
   // 正在输入真实姓名的监听事件：
   onInputTrueName(e) {
-    console.log(e);
     this.setData({
       truename: e.detail.detail.value
     });
@@ -158,6 +158,7 @@ Page({
     let openid = wx.getStorageSync('openid')
     wx.request({
       url: 'http://localhost:9090/v1/weixin/initOfficer',
+      // url: 'https://api.sicnurpz.online/v1/weixin/initOfficer',
       method: 'POST',
       data: {
         "openid": openid,
@@ -173,12 +174,17 @@ Page({
             key: 'truename',
             data: this.data.truename
           });
+          wx.lin.showToast({
+            title: '创建实名信息成功！',
+            icon: 'success',
+            iconStyle: 'color: green; size: 60',
+          });
         } else {
           wx.lin.showToast({
             title: '创建实名信息请求失败！',
             icon: 'error',
             iconStyle: 'color: red; size: 60',
-          })
+          });
         }
       },
       fail: error => {
