@@ -84,8 +84,8 @@ Page({
 					console.log('INFO - 开始请求解析以取得openid');
 					wx.request({
 						method: 'GET',
-						url: 'http://localhost:9090/v1/weixin/openid',
-						// url: 'https://api.sicnurpz.online/v1/weixin/openid',
+						// url: 'http://localhost:9090/v1/weixin/openid',
+						url: 'https://api.sicnurpz.online/v1/weixin/openid',
 						data: {
 							appid: 'wx811aaed72af43da5',
 							secret: '8b101090e568d97e266cf8a0d6d3028e',
@@ -157,8 +157,8 @@ Page({
   submitTrueName() {
     let openid = wx.getStorageSync('openid')
     wx.request({
-      url: 'http://localhost:9090/v1/weixin/initOfficer',
-      // url: 'https://api.sicnurpz.online/v1/weixin/initOfficer',
+      // url: 'http://localhost:9090/v1/weixin/initOfficer',
+      url: 'https://api.sicnurpz.online/v1/weixin/initOfficer',
       method: 'POST',
       data: {
         "openid": openid,

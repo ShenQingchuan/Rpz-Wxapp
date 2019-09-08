@@ -27,6 +27,7 @@
   font-size: 30rpx;
   color: gray;
   margin-bottom: 20rpx;
+  text-overflow: ellipsis;
 }
 .next-speech-speaker text, .next-speech-topic text {
   font-weight: bold;

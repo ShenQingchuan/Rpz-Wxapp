@@ -25,8 +25,13 @@ Component({
 	ready: function() {
 		this.setData({
 			public_actions: [
+        {
+          'title': '新建展讲项目', 'icon': 'more',
+          'tag-content': null, 'tag-color': null,
+          'url': '/pages/addNewSpeech/addNewSpeech'
+        },
 				{
-					'title': '展讲轮值表', 'icon': 'history',
+					'title': '展讲信息栏', 'icon': 'history',
 					'tag-content': null, 'tag-color': null,
 					'url': '/pages/speechSchedule/speechSchedule'
 				},

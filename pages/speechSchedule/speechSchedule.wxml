@@ -12,13 +12,13 @@
   <l-card type="primary" class="container"
     plaintext="{{true}}" title="⏰ 下次展讲详情: ">
     <view class="next-speech-info">
-      <l-countdown time="2019-09-15 20:00" />
+      <l-countdown time="{{next_start_time}}" />
     </view>
     <view class="next-speech-speaker">
-      下次展讲的分享人是：<text>待更新</text>
+      下次展讲的分享人是：<text>{{next_speaker}}</text>
     </view>
     <view class="next-speech-topic">
-      下次展讲的主题是：<text>待更新...</text>
+      下次展讲的主题是：<text>{{next_title}}</text>
     </view>
   </l-card>
 

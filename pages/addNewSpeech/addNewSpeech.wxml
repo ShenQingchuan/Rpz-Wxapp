@@ -1,0 +1,56 @@
+<!--pages/addNewSpeech/addNewSpeech.wxml-->
+<!-- toast 提示框的视图, 由JS控制弹出 -->
+<l-toast />
+
+<view class="addNewSpeech-container">
+  <l-card plaintext title="➕ 发起新的展讲项目"
+   l-title-class="addNewSpeech-card-title">
+    <view class="addNewSpeech-form-content">
+      <l-input label="展讲标题" width="550" rules="{{title_rule}}" 
+       bind:linvalidate="validate" required="{{true}}" value="{{title}}"
+       placeholder="请输入展讲标题" bind:linchange="inputSpeechTitle" />
+      <l-input label="讲者姓名" width="550" rules="{{speaker_rule}}" 
+       bind:linvalidate="validate" required="{{true}}" value="{{speaker}}"
+       placeholder="请输入展讲者姓名" bind:linchange="inputSpeakerTitle" />
+      <l-textarea l-class="speech-description"  placeholder="说说你想要具体展示些什么吧..." 
+       value="{{description}}" bind:linchange="inputSpeechDescription"
+       indicator="{{true}}" maxlength="40" />
+      <l-input label="展讲日期" width="550" rules="{{date_rule}}" value="{{date}}"
+       bind:linvalidate="validate" required="{{true}}"
+       placeholder="格式 YYYY/MM/DD" bind:linchange="inputSpeechDate" />
+      <l-input label="开始时间" width="550" rules="{{start_time_rule}}" value="{{start_time}}"
+       bind:linvalidate="validate" required="{{true}}"
+       placeholder="格式 HH:MM" bind:linchange="inputSpeechStartTime" />
+      <l-input label="结束时间" width="550" rules="{{end_time_rule}}" value="{{end_time}}"
+       bind:linvalidate="validate" required="{{true}}"
+       placeholder="格式 HH:MM" bind:linchange="inputSpeechEndTime" />
+      <l-input label="展讲地点" width="550" rules="{{time_rule}}" value="{{location}}"
+       bind:linvalidate="validate" required="{{true}}"
+       placeholder="请输入展讲活动地点" bind:linchange="inputSpeechLocation" />
+
+      <view class="addNewSpeech-form-group">
+        <view class="addNewSpeech-form-groupline">—— 小可爱你是哪个组的呀？——</view>
+        <l-radio-group current="{{null}}" none-checked="{{false}}" 
+          bind:linchange="inputSpeechGroup">
+          <l-radio key="1" custom="{{true}}" value="Clang" 
+          l-class="addNewSpeech-access-radio-item">
+            🔥伏龙 · Clang组
+          </l-radio>
+          <l-radio key="2" custom="{{true}}" value="JDev" 
+          l-class="addNewSpeech-access-radio-item">
+            🌞明王 · JDev组
+          </l-radio>
+          <l-radio key="3" custom="{{true}}" value="WDev" 
+          l-class="addNewSpeech-access-radio-item">
+            🌙天工 · WDev组
+          </l-radio>
+        </l-radio-group>
+      </view>
+
+      <l-button icon="success" icon-size="30" icon-color="#fff"
+       type="success" size="long" l-class="submit-btn" bind:lintap="submitNewSpeech">
+        <text class="submit-text"> 提交 </text>
+      </l-button>
+    </view>
+  </l-card>
+</view>

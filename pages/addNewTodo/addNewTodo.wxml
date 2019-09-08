@@ -1,4 +1,7 @@
 <!--pages/addNewTodo/addNewTodo.wxml-->
+<!-- toast 提示框的视图, 由JS控制弹出 -->
+<l-toast />
+
 <view class="addNewTodo-page-container">
 	<l-card plaintext title="添加新的日程" l-class="addNewTodo-card"
 	 l-title-class="addNewTodo-card-title" >
@@ -42,8 +45,5 @@
 		</view>
 	</l-card>
 </view>
-
-<!-- toast 提示框的视图, 由JS控制弹出 -->
-<l-toast />
 
 

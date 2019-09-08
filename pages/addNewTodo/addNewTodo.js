@@ -18,7 +18,7 @@ Page({
 		accept_submit_license: false,
 
 		// 以下是各个输入框的校验规则:
-		title_rule: [{required: true,min: 2,max: 20, message: '标题需要在2-20个字符之间！'}],
+		title_rule: [{ required: true,min: 2,max: 20, message: '标题需要在2-20个字符之间！'}],
 		content_rule: [{ required: true, min: 1, max: 65, message: '描述需要在1-65个字符之间' }],
 		year_rule: [{ required: true, type: 'number', message: '年份输入有误' }],
 		month_rule: [{ required: true, type: 'number', message: '月份输入有误！' }],
@@ -112,8 +112,8 @@ Page({
 		else {
 			let openid = wx.getStorageSync('openid');
 			wx.request({
-				url: 'http://localhost:9090/v1/weixin/todo',
-				// url: 'https://api.sicnurpz.online/v1/weixin/todo',
+				// url: 'http://localhost:9090/v1/weixin/todo',
+				url: 'https://api.sicnurpz.online/v1/weixin/todo',
 				method: 'POST',
 				data: {
 					title: this.data.title,

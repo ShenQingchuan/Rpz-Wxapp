@@ -1,5 +1,5 @@
 <!--components/action-list/index.wxml-->
-<l-tabs placement="left" style="height: 200rpx;">
+<l-tabs placement="left">
 	<l-tabpanel tab="系统功能" key="sys_func" slot="sys_func">
 		<l-list wx:key="al_key" l-class="action-list-item"
 			wx:for="{{public_actions}}" 

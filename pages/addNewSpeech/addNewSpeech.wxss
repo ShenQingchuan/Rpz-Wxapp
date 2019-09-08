@@ -1,0 +1,47 @@
+/* pages/addNewSpeech/addNewSpeech.wxss */
+.addNewSpeech-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  box-sizing: border-box;
+}
+.addNewSpeech-card-title {
+  font-weight: bold;
+  font-size: 22px;
+}
+.speech-description {
+  width: 600rpx !important;
+}
+.addNewSpeech-form-content {
+  margin-top: 30rpx;
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+}
+.addNewSpeech-form-group {
+  margin: 30rpx auto;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.addNewSpeech-form-groupline {
+  font-size: 28rpx;
+  color: gray;
+}
+.addNewSpeech-access-radio-item {
+  font-weight: bold;
+  width: 310rpx;
+	font-size: 38rpx;
+	margin: 20rpx auto 10rpx auto;
+}
+
+.submit-text {
+  margin: 0 20rpx;
+  font-size: 34rpx;
+  font-weight: bold;
+}
+.submit-btn {
+  border-radius: 50rpx !important;
+}
