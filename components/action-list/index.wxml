@@ -8,7 +8,7 @@
 			tag-content="{{item['tag-content']}}" 
 			tag-color="{{item['tag-color']}}" />
 	</l-tabpanel>
-	<l-tabpanel tab="系统管理" key="sys_manage" slot="sys_manage">
+	<l-tabpanel tab="实用工具" key="sys_manage" slot="sys_manage">
 		<l-list wx:key="al_key" l-class="action-list-item"
 			wx:for="{{manage_actions}}"
 			title="{{item['title']}}" icon="{{item['icon']}}" 

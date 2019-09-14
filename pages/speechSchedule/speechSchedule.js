@@ -8,8 +8,18 @@ Page({
     score: 0,
     myhistory: [],
 
+    // 倒计时组件是否开启
+    currentCountdownOpenStatus: false,
+    nextCountdownOpenStatus: false,
+    
+    // 当前展讲详情：
+    currentExists: false,
+    current_end_time: '',
+    current_speaker: '',
+    current_title: '',
+
     // 下次展讲详情：
-    next_start_time: '2019-12-31 12:00',
+    next_start_time: '',
     next_speaker: '待更新...',
     next_title: '待更新...',
 	},
@@ -141,14 +151,17 @@ Page({
       method: 'GET',
       success: (res) => {
         if(res.statusCode < 300 && res.statusCode >= 200) {
-          const start_time_src = res.data.bundle_data.result.start_time.toString().split('T');
-          const start_time_lit = start_time_src[0] + ' ' + start_time_src[1].split('.')[0];
-          // 写入下次展讲的相关数据
-          this.setData({
-            next_title: res.data.bundle_data.result.title,
-            next_speaker: res.data.bundle_data.result.speaker,
-            next_start_time: start_time_lit
-          });
+          if (res.data.bundle_data.result) {  // 确实查询到了结果
+            const start_time_src = res.data.bundle_data.result.start_time.toString().split('T');
+            const start_time_lit = start_time_src[0] + ' ' + start_time_src[1].split('.')[0];
+            // 写入下次展讲的相关数据
+            this.setData({
+              next_title: res.data.bundle_data.result.title,
+              next_speaker: res.data.bundle_data.result.speaker,
+              next_start_time: start_time_lit,
+              nextCountdownOpenStatus: true
+            });
+          }
         } else {
           wx.lin.showToast({
             title: `获取下次展讲失败!错误代码: ${res.data.error_code}`,

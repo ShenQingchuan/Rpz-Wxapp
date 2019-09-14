@@ -67,6 +67,9 @@ Page({
 			},
 			fail: err=>{
 				console.log("ERROR - session key 过期...");
+        // 过期先清理 缓存storage中的数据
+        wx.clearStorage();
+        // 重新解析openid
 				this.getOpenID();
 			}
 		});

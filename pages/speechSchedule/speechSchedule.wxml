@@ -9,15 +9,31 @@
     </view>
   </l-card>
   
+  <!-- 当前进行中的展讲 -->
+  <l-card type="primary" class="container" 
+    wx:if="{{currentExists}}"
+    plaintext="{{true}}" title="👉 正在进行中的展讲: ">
+    <view class="speech-info">
+      <l-countdown time="" status="{{currentCountdownOpenStatus}}" />
+    </view>
+    <view class="speech-speaker">
+      当前进行展讲的分享人是：<text>某演讲人</text>
+    </view>
+    <view class="speech-topic">
+      当前进行展讲的主题是：<text>某主题</text>
+    </view>
+  </l-card>
+
+  <!-- 下次最近时间的展讲 -->
   <l-card type="primary" class="container"
     plaintext="{{true}}" title="⏰ 下次展讲详情: ">
-    <view class="next-speech-info">
-      <l-countdown time="{{next_start_time}}" />
+    <view class="speech-info">
+      <l-countdown time="{{next_start_time}}" status="{{nextCountdownOpenStatus}}" />
     </view>
-    <view class="next-speech-speaker">
+    <view class="speech-speaker">
       下次展讲的分享人是：<text>{{next_speaker}}</text>
     </view>
-    <view class="next-speech-topic">
+    <view class="speech-topic">
       下次展讲的主题是：<text>{{next_title}}</text>
     </view>
   </l-card>
