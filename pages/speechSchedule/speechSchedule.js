@@ -151,7 +151,8 @@ Page({
       method: 'GET',
       success: (res) => {
         if(res.statusCode < 300 && res.statusCode >= 200) {
-          if (res.data.bundle_data.result) {  // 确实查询到了结果
+          if (Object.keys(res.data.bundle_data.result).length > 0) {  // 确实查询到了结果
+            console.log(res.data.bundle_data.result);
             const start_time_src = res.data.bundle_data.result.start_time.toString().split('T');
             const start_time_lit = start_time_src[0] + ' ' + start_time_src[1].split('.')[0];
             // 写入下次展讲的相关数据
