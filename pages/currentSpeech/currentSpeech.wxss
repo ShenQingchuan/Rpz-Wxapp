@@ -1,0 +1,39 @@
+/* pages/currentSpeech/currentSpeech.wxss */
+
+.container {
+  font-weight: bold;
+}
+.speech-info {
+  margin-top: 15rpx;
+  padding: 15rpx;
+}
+.speech-speaker, .speech-topic {
+  font-size: 30rpx;
+  color: gray;
+  margin-bottom: 20rpx;
+  text-overflow: ellipsis;
+}
+.speech-speaker text, .speech-topic text {
+  font-weight: bold;
+}
+.current-info-text {
+  color: slategrey;
+}
+.flex-container {
+  display: flex;
+}
+.speech-sign {
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.sign-btn {
+  padding: 20rpx 0;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.sign-list {
+  margin-top: 44rpx;
+  justify-content: flex-start;
+}
+

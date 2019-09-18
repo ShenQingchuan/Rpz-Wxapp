@@ -4,7 +4,8 @@
     "pages/calendar/calendar",
     "pages/addNewTodo/addNewTodo",
     "pages/speechSchedule/speechSchedule",
-    "pages/addNewSpeech/addNewSpeech"
+    "pages/addNewSpeech/addNewSpeech",
+    "pages/currentSpeech/currentSpeech"
   ],
   "window": {
     "backgroundTextStyle": "light",

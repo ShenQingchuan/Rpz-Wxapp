@@ -1,0 +1,32 @@
+<!--pages/currentSpeech/currentSpeech.wxml-->
+
+<l-card type="primary" class="container" 
+    plaintext="{{true}}" title="👉 正在进行中的展讲: ">
+    <view class="speech-info">
+      <l-countdown time="{{current_end_time}}" status="{{currentCountdownOpenStatus}}" />
+    </view>
+    <view class="speech-speaker">
+      当前进行展讲的分享人是：<text class="current-info-text">{{current_speaker}}</text>
+    </view>
+    <view class="speech-topic">
+      当前进行展讲的主题是：<text class="current-info-text">{{current_title}}</text>
+    </view>
+    <view class="speech-sign flex-container">
+      <text>快点这里签到吧！</text>
+      <l-button special="{{true}}">
+        <!-- 此处是插槽自定义内容 -->
+        <view class="sign-btn flex-container">
+          <l-icon name="checked" size="55" />
+        </view>
+      </l-button>
+    </view>
+    <view class="sign-list flex-container">
+      <l-list wx:if="{{signedList.length === 0}}" is-link="{{false}}"
+      title="还没有人来本场签到哦！" icon="ellipsis" />
+      <view wx:else>
+        <l-list wx:for="{{signedList}}" is-link="{{false}}"
+          title="{{item.signerName}}" icon="user" />
+      </view>      
+    </view>
+  </l-card>
+

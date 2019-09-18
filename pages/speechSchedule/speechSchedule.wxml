@@ -10,17 +10,24 @@
   </l-card>
   
   <!-- 当前进行中的展讲 -->
-  <l-card type="primary" class="container" 
-    wx:if="{{currentExists}}"
+  <l-card type="primary" class="container" wx:if="{{currentExists}}"
     plaintext="{{true}}" title="👉 正在进行中的展讲: ">
     <view class="speech-info">
-      <l-countdown time="" status="{{currentCountdownOpenStatus}}" />
+      <l-countdown time="{{current_end_time}}" status="{{currentCountdownOpenStatus}}" />
     </view>
     <view class="speech-speaker">
-      当前进行展讲的分享人是：<text>某演讲人</text>
+      当前进行展讲的分享人是：<text>{{current_speaker}}</text>
     </view>
     <view class="speech-topic">
-      当前进行展讲的主题是：<text>某主题</text>
+      当前进行展讲的主题是：<text>{{current_title}}</text>
+    </view>
+    <view class="entry-container" >
+      <l-button special="{{true}}" bind:lintap="jumpToCurrentSpeechPage">
+        <!-- 此处是插槽自定义内容 -->
+        <text class="entry-btn-text">
+          → 立即进入
+        </text>
+      </l-button>
     </view>
   </l-card>
 
@@ -50,11 +57,9 @@
 
         <view wx:else>
           <!-- 若数组长度不为 0则 wx:for -->
-          <l-list title="主题在这里" desc="计协君 2019/09/10 14:00-16:00"
-          l-class-desc="speech-history-desc" />
-          <l-list title="主题在这里" desc="计协君 2019/09/10 14:00-16:00"
-          l-class-desc="speech-history-desc" />
-          <l-list title="主题在这里" desc="计协君 2019/09/10 14:00-16:00"
+          <l-list wx:for="{{myhistory}}" wx:key="history_key"
+           title="{{item.title}}" 
+           desc="{{item.timeGap}}"
           l-class-desc="speech-history-desc" />
         </view>
       </view>

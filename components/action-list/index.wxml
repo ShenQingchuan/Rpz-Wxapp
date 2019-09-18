@@ -1,7 +1,7 @@
 <!--components/action-list/index.wxml-->
 <l-tabs placement="left">
 	<l-tabpanel tab="系统功能" key="sys_func" slot="sys_func">
-		<l-list wx:key="al_key" l-class="action-list-item"
+		<l-list wx:key="funcs_key" l-class="action-list-item"
 			wx:for="{{public_actions}}" 
 			url="{{item['url']}}"
 			title="{{item['title']}}" icon="{{item['icon']}}" 
@@ -9,7 +9,7 @@
 			tag-color="{{item['tag-color']}}" />
 	</l-tabpanel>
 	<l-tabpanel tab="实用工具" key="sys_manage" slot="sys_manage">
-		<l-list wx:key="al_key" l-class="action-list-item"
+		<l-list wx:key="tools_key" l-class="action-list-item"
 			wx:for="{{manage_actions}}"
 			title="{{item['title']}}" icon="{{item['icon']}}" 
 			url="{{item['url']}}"

@@ -14,9 +14,10 @@ Page({
     
     // 当前展讲详情：
     currentExists: false,
+    current_speechid: '',
     current_end_time: '',
-    current_speaker: '',
-    current_title: '',
+    current_speaker: '某展讲人..',
+    current_title: '某主题..',
 
     // 下次展讲详情：
     next_start_time: '',
@@ -37,6 +38,8 @@ Page({
 	onReady: function () {
     this.flushSpeechScore();
     this.flushLatestSpeech();
+    this.flushMyHistoryList();
+    this.flushCurrentSpeech();
 	},
 
 	/**
@@ -81,6 +84,11 @@ Page({
 
 	},
 
+
+  trimTime: function(time_string) {
+    return time_string.replace(/T/g, ' ')
+  },
+
   /**
    * 刷新干事展讲积分方法：
   */
@@ -122,8 +130,15 @@ Page({
       url: `https://api.sicnurpz.online/v1/weixin/speech/myHistory?openid=${_openid}`,
       method: 'GET',
       success: (res) => {
+        // console.log(res.data);
+        let _result = res.data.bundle_data.result;
+        _result.forEach(item => {
+          const _start = new Date(item.start_time);
+          const _end = new Date(item.end_time);
+          item['timeGap'] = ` ${_start.toLocaleDateString()} ${_start.toLocaleTimeString('chinese', { hour12: false })} - ${_end.toLocaleTimeString('chinese', { hour12: false })}`
+        });
         this.setData({
-          myhistory: res.data.bundle_data.result
+          myhistory: _result
         });
         wx.lin.showToast({
           title: '刷新个人展讲历史记录成功!',
@@ -142,7 +157,7 @@ Page({
   },
 
   /**
-   * 查询最近一次的展讲时间
+   * 查询最近 [下] 一次的展讲时间
    */
   flushLatestSpeech: function() {
     wx.request({
@@ -152,7 +167,7 @@ Page({
       success: (res) => {
         if(res.statusCode < 300 && res.statusCode >= 200) {
           if (Object.keys(res.data.bundle_data.result).length > 0) {  // 确实查询到了结果
-            console.log(res.data.bundle_data.result);
+            // console.log(res.data.bundle_data.result);
             const start_time_src = res.data.bundle_data.result.start_time.toString().split('T');
             const start_time_lit = start_time_src[0] + ' ' + start_time_src[1].split('.')[0];
             // 写入下次展讲的相关数据
@@ -177,7 +192,61 @@ Page({
           icon: 'error',
         });
       },
-    })
+    });
+  },
+
+  /**
+   * 查询当前正在进行的展讲
+   */
+  flushCurrentSpeech: function() {
+    wx.request({
+      // url: 'http://localhost:9090/v1/weixin/speech/getCurrent',
+      url: 'https://api.sicnurpz.online/v1/weixin/speech/getCurrent',
+      method: 'GET',
+      success: (res) => {
+        // console.log(res.data);
+        if(res.statusCode == 204) {
+          // 说明当前并没有展讲进行中...
+          this.setData({
+            currentExists: false,
+            current_end_time: '',
+            current_speaker: '无',
+            current_title: '无',
+          });
+        } else {
+          // 说明有数据，那么为其准备显示需要的数据：
+          const result = res.data.bundle_data.result;
+          this.setData({
+            currentExists: true,
+            currentCountdownOpenStatus: true,
+            current_speechid: result._id,
+            current_end_time: this.trimTime(result.end_time),
+            current_speaker: result.speaker,
+            current_title: result.title,
+          });
+        }
+      },
+      fail: (err) => {
+        console.log(err.errMsg);
+        wx.lin.showToast({
+          title: '获取当前进行展讲出错!',
+          icon: 'error',
+        });
+      },
+    });
+  },
+
+  /**
+   * 跳转到正在进行中的展讲的页面
+   */
+  jumpToCurrentSpeechPage: function() {
+    wx.navigateTo({
+      url: '/pages/currentSpeech/currentSpeech' 
+        + `?cur_title=${this.data.current_title}`
+        + `&cur_speaker=${this.data.current_speaker}`
+        + `&cur_endtime=${this.data.current_end_time}`
+        + `&cur_speechid=${this.data.current_speechid}`,
+    });
   },
 
 })

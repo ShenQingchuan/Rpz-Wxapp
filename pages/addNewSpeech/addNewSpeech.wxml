@@ -12,6 +12,9 @@
       <l-input label="讲者姓名" width="550" rules="{{speaker_rule}}" 
        bind:linvalidate="validate" required="{{true}}" value="{{speaker}}"
        placeholder="请输入展讲者姓名" bind:linchange="inputSpeakerTitle" />
+      <l-input label="讲者学号" width="550" rules="{{sicnuid_rule}}" 
+       bind:linvalidate="validate" required="{{true}}" value="{{sicnuid}}"
+       placeholder="请输入展讲者学号" bind:linchange="inputSicnuidTitle" /> 
       <l-textarea l-class="speech-description"  placeholder="说说你想要具体展示些什么吧..." 
        value="{{description}}" bind:linchange="inputSpeechDescription"
        indicator="{{true}}" maxlength="40" />

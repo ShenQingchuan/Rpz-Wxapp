@@ -5,8 +5,11 @@ Page({
    * 页面的初始数据
    */
   data: {
+    // 表单数据项
     title: '',
     speaker: '',
+    sicnuid: '',
+    openid: null,
     description: '',
     date: '',
     start_time: '',
@@ -15,8 +18,9 @@ Page({
     group: '',
 
     //表单的InputRules:
-    title_rule:[{ required: true, min: 5,max: 15,message: '长度需要在5-15个字符之间'}],
-    speaker_rule: [{ required: true, min: 2, max: 5, message: '姓名为2-5个字符' }],
+    title_rule:[{ required: true, min: 2,max: 15,message: '长度需要在2-15个字符之间！'}],
+    speaker_rule: [{ required: true, min: 2, max: 5, message: '姓名为2-5个字符！' }],
+    sicnuid_rule: [{ required: true, min: 10, max: 12, message: '学号是10-12个数字！' }],
     location_rule:[{ required: true }],
     date_rule: [{ required: true, pattern: "/^\\d{4}\/\\d{2}\/\\d{2}$/", message: '日期输入有误！' }],
     start_time_rule: [{ required: true, pattern: "/^\\d\\d:\\d\\d$/", message: '时间输入有误！' }],
@@ -34,7 +38,12 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    const _openid = wx.getStorageSync("openid");
+    if(_openid) {
+      this.setData({
+        openid: _openid
+      });
+    }
   },
 
   /**
@@ -84,6 +93,7 @@ Page({
    */
   inputSpeechTitle: function(e) { this.setData({ title: e.detail.detail.value}); },
   inputSpeakerTitle: function (e) { this.setData({ speaker: e.detail.detail.value }); },
+  inputSicnuidTitle: function (e) { this.setData({ sicnuid: e.detail.detail.value }); },
   inputSpeechDate: function(e) { this.setData({ date: e.detail.detail.value}); },
   inputSpeechStartTime: function (e) { this.setData({ start_time: e.detail.detail.value}); },
   inputSpeechEndTime: function (e) { this.setData({ end_time: e.detail.detail.value }); },
@@ -116,6 +126,7 @@ Page({
     this.setData({
       title: '',
       speaker: '',
+      sicnuid: '',
       description: '',
       date: '',
       start_time: '',
@@ -135,6 +146,8 @@ Page({
       data: {
         title: this.data.title,
         speaker: this.data.speaker,
+        sicnuid: this.data.sicnuid,
+        openid: this.data.openid,
         description: this.data.description,
         date: this.data.date,
         start_time: this.data.start_time,
@@ -149,6 +162,13 @@ Page({
             title: '新的展讲项目提交成功, 准备开始审核...',
             icon: 'success',
             iconStyle: 'color: #34bfa3; size: 60',
+          });
+          this.clearForm();
+        } else if (res.statusCode === 406) {
+          wx.lin.showToast({
+            title: '您的表单项目填写不完整！',
+            icon: 'error',
+            iconStyle: 'color: red; size: 60',
           });
           this.clearForm();
         } else {

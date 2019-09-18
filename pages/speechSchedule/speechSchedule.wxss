@@ -47,3 +47,15 @@
 .speech-history-desc {
   color: gray !important;
 }
+
+.entry-container {
+  display: flex;
+  justify-content: flex-end;
+}
+.entry-btn-text {
+  margin-left: 26rpx;
+  font-weight: bold;
+  color: slategrey;
+  font-size: 30rpx;
+  line-height: 25rpx;
+}
