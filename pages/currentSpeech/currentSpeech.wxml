@@ -1,4 +1,5 @@
 <!--pages/currentSpeech/currentSpeech.wxml-->
+<l-toast />
 
 <l-card type="primary" class="container" 
     plaintext="{{true}}" title="👉 正在进行中的展讲: ">
@@ -11,9 +12,15 @@
     <view class="speech-topic">
       当前进行展讲的主题是：<text class="current-info-text">{{current_title}}</text>
     </view>
-    <view class="speech-sign flex-container">
+    <view class="speech-sign flex-container" wx:if="{{!didMeSign}}">
       <text>快点这里签到吧！</text>
-      <l-button special="{{true}}">
+      <l-input label="学号:" bind:linvalidate="validate_sicnuid_input" 
+        required="{{true}}" 
+        value="{{input_sicnuid}}"
+        rules="{{sicnuid_rules}}"
+        placeholder="请填写学号以完成签到" 
+        bind:linchange="inputSignSicnuid"  />
+      <l-button special="{{true}}" bind:lintap="submitSign">
         <!-- 此处是插槽自定义内容 -->
         <view class="sign-btn flex-container">
           <l-icon name="checked" size="55" />
@@ -24,8 +31,16 @@
       <l-list wx:if="{{signedList.length === 0}}" is-link="{{false}}"
       title="还没有人来本场签到哦！" icon="ellipsis" />
       <view wx:else>
-        <l-list wx:for="{{signedList}}" is-link="{{false}}"
-          title="{{item.signerName}}" icon="user" />
+        <view >👇 已签到的同学们：
+          <l-button shape="circle" plain="{{true}}"
+          icon="loading" icon-size="25"
+          bind:lintap="flushCurrentSignedList">
+            刷新签到
+          </l-button>
+        </view>
+        <l-list wx:for="{{signedList}}" 
+          is-link="{{false}}" wx:key="{{sign_item}}"
+          title="{{item.sicnuid + ' - ' + item.name}}" icon="user" />
       </view>      
     </view>
   </l-card>

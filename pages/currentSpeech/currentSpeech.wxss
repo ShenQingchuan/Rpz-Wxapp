@@ -26,6 +26,7 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  width: 85%;
 }
 .sign-btn {
   padding: 20rpx 0;

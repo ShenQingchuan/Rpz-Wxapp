@@ -102,7 +102,7 @@ Page({
                 this.setData({
                   inMask: !response.data.bundle_data.officer_realname_status
                 }); // 取消遮罩
-                wx.setStorageSync('truename', 'any:yes');
+                wx.setStorageSync('truename', response.data.bundle_data.officer_realname);
               }
               
 							//可以把openid存到本地缓存，方便以后调用

@@ -1,17 +1,17 @@
 // pages/speechSchedule/speechSchedule.js
 Page({
 
-	/**
-	 * 页面的初始数据
-	 */
-	data: {
+  /**
+   * 页面的初始数据
+   */
+  data: {
     score: 0,
     myhistory: [],
 
     // 倒计时组件是否开启
     currentCountdownOpenStatus: false,
     nextCountdownOpenStatus: false,
-    
+
     // 当前展讲详情：
     currentExists: false,
     current_speechid: '',
@@ -23,66 +23,66 @@ Page({
     next_start_time: '',
     next_speaker: '待更新...',
     next_title: '待更新...',
-	},
+  },
 
-	/**
-	 * 生命周期函数--监听页面加载
-	 */
-	onLoad: function (options) {
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
 
-	},
+  },
 
-	/**
-	 * 生命周期函数--监听页面初次渲染完成
-	 */
-	onReady: function () {
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
     this.flushSpeechScore();
     this.flushLatestSpeech();
     this.flushMyHistoryList();
     this.flushCurrentSpeech();
-	},
+  },
 
-	/**
-	 * 生命周期函数--监听页面显示
-	 */
-	onShow: function () {
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
 
-	},
+  },
 
-	/**
-	 * 生命周期函数--监听页面隐藏
-	 */
-	onHide: function () {
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
 
-	},
+  },
 
-	/**
-	 * 生命周期函数--监听页面卸载
-	 */
-	onUnload: function () {
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
 
-	},
+  },
 
-	/**
-	 * 页面相关事件处理函数--监听用户下拉动作
-	 */
-	onPullDownRefresh: function () {
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
 
-	},
+  },
 
-	/**
-	 * 页面上拉触底事件的处理函数
-	 */
-	onReachBottom: function () {
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
 
-	},
+  },
 
-	/**
-	 * 用户点击右上角分享
-	 */
-	onShareAppMessage: function () {
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
 
-	},
+  },
 
 
   trimTime: function(time_string) {
@@ -91,7 +91,7 @@ Page({
 
   /**
    * 刷新干事展讲积分方法：
-  */
+   */
   flushSpeechScore: function() {
     const _openid = wx.getStorageSync('openid');
     wx.request({
@@ -99,14 +99,32 @@ Page({
       url: `https://api.sicnurpz.online/v1/weixin/speech/score?openid=${_openid}`,
       method: 'GET',
       success: (res) => {
+        if (res.statusCode === 429) {
+          wx.lin.showToast({
+            title: '请求太快啦！',
+            icon: 'error',
+            iconStyle: 'color: red; size: 60',
+          });
+          return;
+        }
         if (res.data.bundle_data.result instanceof Object) {
-          this.setData({score: 2000});
+          this.setData({
+            score: 2000
+          });
           // 提示 初始化展讲积分成功
-          wx.lin.showToast({title: '初始化展讲积分成功!',icon: 'success',});
+          wx.lin.showToast({
+            title: '初始化展讲积分成功!',
+            icon: 'success',
+          });
         } else {
-          this.setData({score: res.data.bundle_data.result});
+          this.setData({
+            score: res.data.bundle_data.result
+          });
           // 提示 展讲积分刷新成功
-          wx.lin.showToast({title: '刷新展讲积分成功!',icon: 'success',});
+          wx.lin.showToast({
+            title: '刷新展讲积分成功!',
+            icon: 'success',
+          });
         }
       },
       fail: (err) => {
@@ -130,6 +148,14 @@ Page({
       url: `https://api.sicnurpz.online/v1/weixin/speech/myHistory?openid=${_openid}`,
       method: 'GET',
       success: (res) => {
+        if (res.statusCode === 429) {
+          wx.lin.showToast({
+            title: '请求太快啦！',
+            icon: 'error',
+            iconStyle: 'color: red; size: 60',
+          });
+          return;
+        }
         // console.log(res.data);
         let _result = res.data.bundle_data.result;
         _result.forEach(item => {
@@ -165,8 +191,16 @@ Page({
       url: 'https://api.sicnurpz.online/v1/weixin/speech/getLatest',
       method: 'GET',
       success: (res) => {
-        if(res.statusCode < 300 && res.statusCode >= 200) {
-          if (Object.keys(res.data.bundle_data.result).length > 0) {  // 确实查询到了结果
+        if (res.statusCode === 429) {
+          wx.lin.showToast({
+            title: '请求太快啦！',
+            icon: 'error',
+            iconStyle: 'color: red; size: 60',
+          });
+          return;
+        }
+        if (res.statusCode < 300 && res.statusCode >= 200) {
+          if (Object.keys(res.data.bundle_data.result).length > 0) { // 确实查询到了结果
             // console.log(res.data.bundle_data.result);
             const start_time_src = res.data.bundle_data.result.start_time.toString().split('T');
             const start_time_lit = start_time_src[0] + ' ' + start_time_src[1].split('.')[0];
@@ -204,8 +238,16 @@ Page({
       url: 'https://api.sicnurpz.online/v1/weixin/speech/getCurrent',
       method: 'GET',
       success: (res) => {
+        if (res.statusCode === 429) {
+          wx.lin.showToast({
+            title: '请求太快啦！',
+            icon: 'error',
+            iconStyle: 'color: red; size: 60',
+          });
+          return;
+        }
         // console.log(res.data);
-        if(res.statusCode == 204) {
+        if (res.statusCode == 204) {
           // 说明当前并没有展讲进行中...
           this.setData({
             currentExists: false,
@@ -241,11 +283,11 @@ Page({
    */
   jumpToCurrentSpeechPage: function() {
     wx.navigateTo({
-      url: '/pages/currentSpeech/currentSpeech' 
-        + `?cur_title=${this.data.current_title}`
-        + `&cur_speaker=${this.data.current_speaker}`
-        + `&cur_endtime=${this.data.current_end_time}`
-        + `&cur_speechid=${this.data.current_speechid}`,
+      url: '/pages/currentSpeech/currentSpeech' +
+        `?cur_title=${this.data.current_title}` +
+        `&cur_speaker=${this.data.current_speaker}` +
+        `&cur_endtime=${this.data.current_end_time}` +
+        `&cur_speechid=${this.data.current_speechid}`,
     });
   },
 
