@@ -29,7 +29,7 @@
     </view>
 
     <l-grid show-row-border="false" show-col-border="true">
-      <l-grid-item key='calendar' slot='calendar' bind:lintap="goCalendarPage">
+      <l-grid-item key='calendar' slot='calendar' bind:linitemtap="goCalendarPage">
         <view class='grid-item' > 
           <l-icon name="time" /> 
           <view class='grid-label'>工作日程</view>

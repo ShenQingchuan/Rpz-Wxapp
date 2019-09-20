@@ -12,7 +12,8 @@ Page({
 		month: null,
 		day: null,
 		time: '',
-		access_type: '',
+		access_type: 'public',
+    accept: '',
 
 		// 是否已经经过商议允许提交该日程, 对应单选框的 checked
 		accept_submit_license: false,
@@ -85,14 +86,15 @@ Page({
 	},
 
 	// 访问控制类型 - 单选框点击事件：
-	onChangeAccessType(e) { this.setData({ access_type: e.detail.value, }) },
+	onChangeAccessType(e) { this.setData({ access_type: e.detail.key, }) },
 
 	/**
 	 * 是否经过讨论 - 单选框组的点击事件：
 	 */
-	onChangeRadio(){
+	onChangeRadio(e){
 		this.setData({
-			accept_submit_license: !this.accept_submit_license,
+			accept_submit_license: e.detail.checked,
+      accept: e.detail.key,
 		});
 	},
 
@@ -122,7 +124,7 @@ Page({
 					openid: app.globalData.user_openid
 				},
 				success: res => {
-					//console.log(res);
+					console.log(res);
           wx.$successToast(`新的日程记录添加成功！`);
 					this.clearForm();	// 清除已经提交后的表单
 				},
@@ -144,7 +146,6 @@ Page({
 	inputMonth(e) { this.setData({ month: e.detail.value }); },
 	inputDay(e) { this.setData({ day: e.detail.value }); },
 	inputTime(e) { this.setData({ time: e.detail.value }); },
-	inputAccessType(e) { this.setData({ access_type: e.detail.value }); },
 
 	// 清空表单数据到初始状态:
 	clearForm(){
@@ -155,7 +156,9 @@ Page({
 			month: null,
 			day: null,
 			time: '',
-			access_type: '',
+      group: '',
+			access_type: 'public',
+      accept: 'accept',
 		});
 	},
 

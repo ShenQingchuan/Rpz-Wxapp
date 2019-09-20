@@ -23,21 +23,24 @@
 			<!-- TODO待办事项的可见性访问控制属性 -->
 			<view class="addNewTodo-access-meta">
 				<view class="addNewTodo-access-label"> ——— 访问控制 ——— </view>
-				<l-radio-group current="{{null}}" bind:linchange="onChangeAccessType" >
-					<l-radio  value="public" l-class="addNewTodo-access-radio-item"/>
-					<l-radio  value="private" l-class="addNewTodo-access-radio-item"/>
-					<l-radio  value="group" l-class="addNewTodo-access-radio-item"/>
+				<l-radio-group current="{{access_type}}" none-checked="{{false}}"
+        bind:linchange="onChangeAccessType" >
+					<l-radio  key="public" l-class="addNewTodo-access-radio-item">
+           公开日程
+          </l-radio>
+					<l-radio  key="private" l-class="addNewTodo-access-radio-item">
+          私人日程
+          </l-radio>
+					<l-radio  key="group" l-class="addNewTodo-access-radio-item">
+          小组日程
+          </l-radio>
 				</l-radio-group>
-				
-				<view class="addNewTodo-access-description">
-					<text> public: 即公开日程，所有干事都将访问到 </text>
-					<text> private: 即私人日程，只有自己能够访问到 </text>
-					<text> group: 即组内日程，同一小组能够访问到 </text>
-				</view>
 
 				<view class="addNewTodo-radio">
-					<l-radio-group bind:linchange="onChangeRadio">
-						<l-radio value="已经经过讨论,允许提交该日程" />
+					<l-radio-group bind:linchange="onChangeRadio" current="{{accept}}">
+						<l-radio key="accept" >
+              已经经过讨论,允许提交该日程
+            </l-radio>
 					</l-radio-group>
 				</view>
 				<l-button bind:lintap="onNewTodoSubmit" size="long">提交日程</l-button>

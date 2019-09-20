@@ -33,18 +33,22 @@
 
       <view class="addNewSpeech-form-group">
         <view class="addNewSpeech-form-groupline">—— 小可爱你是哪个组的呀？——</view>
-        <l-radio-group current="{{null}}" none-checked="{{false}}" 
+        <l-radio-group current="{{groupKey}}" 
+          none-checked="{{true}}" 
           bind:linchange="inputSpeechGroup">
-          <l-radio key="1" custom="{{true}}" value="Clang" 
-          l-class="addNewSpeech-access-radio-item">
+
+          <l-radio key="Clang" 
+           l-class="addNewSpeech-access-radio-item">
             🔥伏龙 · Clang组
           </l-radio>
-          <l-radio key="2" custom="{{true}}" value="JDev" 
-          l-class="addNewSpeech-access-radio-item">
+
+          <l-radio key="JDev" 
+           l-class="addNewSpeech-access-radio-item">
             🌞明王 · JDev组
           </l-radio>
-          <l-radio key="3" custom="{{true}}" value="WDev" 
-          l-class="addNewSpeech-access-radio-item">
+
+          <l-radio key="WDev" 
+           l-class="addNewSpeech-access-radio-item">
             🌙天工 · WDev组
           </l-radio>
         </l-radio-group>

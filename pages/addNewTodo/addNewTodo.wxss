@@ -35,7 +35,7 @@
 .addNewTodo-access-radio-item{
 	font-weight: bold;
 	font-size: 38rpx;
-	margin: 13rpx;
+	margin: 13rpx 170rpx;
 }
 .addNewTodo-access-description {
 	display: flex;
@@ -47,4 +47,5 @@
 
 .addNewTodo-radio {
 	margin: 55rpx;
+  font-weight: bold;
 }

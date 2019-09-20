@@ -101,7 +101,11 @@ Page({
   // textarea 输入绑定
   inputSpeechDescription: function(e) { this.setData({ description: e.detail.detail.value}); },
   // 单选框组输入绑定
-  inputSpeechGroup: function (e) { this.setData({ group: e.detail.value }); },
+  inputSpeechGroup: function (e) { 
+    this.setData({ 
+      group: e.detail.key,
+    }); 
+  },
 
   /**
 	 * 输入结果校验的方法：

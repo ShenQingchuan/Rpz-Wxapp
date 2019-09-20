@@ -71,17 +71,12 @@ Page({
           item['isOverDue'] = that.isOverDue(item);
         }
 
-        // 因为是进了本页有缓存，退出就清除，所以无论数组长度都添加缓存...
+        // 因为是进了本页有缓存，退出就清除，数组长度>0的都添加缓存...
         let curMonthStamp = `${this.data.curYear}-${this.data.curMonth}`;
         if (temp_todo_objects.length > 0){
           // 将本月份获取到的 todo 表加载到缓存对象中
           this.data.todos_cache[curMonthStamp] = {
             curMonth_todos: temp_todo_objects,
-            todo_days: temp_todo_days
-          };
-        } else if (temp_todo_objects.length === 0) {
-          this.data.todos_cache[curMonthStamp] = {
-            curMonth_todos: [],
             todo_days: temp_todo_days
           };
         }
