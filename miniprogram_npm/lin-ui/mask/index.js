@@ -1,9 +1,10 @@
-// mask
+import zIndex from '../behaviors/zIndex';
 Component({
   /**
    * 组件的属性列表
    */
-  externalClasses: ['mask-class'],
+  behaviors: [zIndex],
+  externalClasses: ['l-class','l-mask-class'],
   properties: {
     // 显示与隐藏
     show: {
@@ -18,7 +19,7 @@ Component({
     // mask的z-index值
     zIndex: {
       type: Number,
-      value: -99,
+      value: 99,
 
     },
     // slot是否居中
@@ -56,21 +57,21 @@ Component({
    */
   methods: {
     // 阻止滑动
-    doNothingMove(e) {
+    doNothingMove() {
       // do nothing……
     },
 
     // 点击事件
-    onMaskTap(e) {
+    onMaskTap() {
 
       let detail = true;
-      let option = {};
+      let option = { bubbles: true, composed: true };
 
       if (this.data.locked !== true) {
         this.setData({
           // fullScreen: 'hide',
           show: false,
-        })
+        });
       }
       this.triggerEvent('lintap', detail, option);
     }
@@ -80,4 +81,4 @@ Component({
   },
 
 
-})
+});

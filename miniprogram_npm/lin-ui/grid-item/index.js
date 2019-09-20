@@ -1,30 +1,34 @@
 Component({
-    relations: {
-        '../grid/index': {
-            type: 'parent'
-        },
+  relations: {
+    '../grid/index': {
+      type: 'parent'
     },
-    externalClasses: ['l-grid-item'],
-    properties: {
-        key: String
+  },
+  externalClasses: ['l-grid-item', 'l-grid-item-class'],
+  properties: {
+    key: String,
+    cell:{
+      type:Object,
+      value:{}
     },
-    data: {},
-    attached() {
+  },
+  data: {
+    index:0,
+  },
+  attached() {
+
+  },
+
+  lifetimes: {
+    show() {
 
     },
-
-    lifetimes: {
-        show() {
-
-        },
+  },
+  methods: {
+    tapGridItem() {
+      this.triggerEvent('linitemtap', {
+        ...this.data
+      }, { bubbles: true, composed: true });
     },
-    methods: {
-        tapGridItem(e) {
-            this.triggerEvent('lintap', {
-                ...e
-            }, {
-                composed: true
-            })
-        },
-    }
+  }
 });

@@ -1,8 +1,19 @@
+import zIndex from '../behaviors/zIndex';
+import watchShow from '../behaviors/wacthShow';
 Component({
+  behaviors: [zIndex, watchShow],
   externalClasses: ['l-class', 'l-image-class'],
   properties: {
     show: Boolean,
     icon: String,
+    iconColor: {
+      type: String,
+      value: '#fff'
+    },
+    iconSize: {
+      type: String,
+      value: '28'
+    },
     image: String,
     content: String,
     type: {
@@ -27,16 +38,10 @@ Component({
     this.initMessage();
   },
 
-  lifetimes: {
+  pageLifetimes: {
     show() {
       this.initMessage();
     },
-  },
-
-  observers: {
-    'show': function (show) {
-      show && this.changeStatus()
-    }
   },
 
   methods: {
@@ -51,7 +56,7 @@ Component({
           duration = 1500,
           success = null
         } = options;
-        this.data.success = success
+        this.data.success = success;
         this.setData({
           content,
           icon,
@@ -59,23 +64,14 @@ Component({
           duration,
           type
         });
-        this.changeStatus()
+        this.changeStatus();
         return this;
       };
-    },
-
-    changeStatus() {
-      this.setData({
-        status: true
-      })
-      if (this.data.timer) clearTimeout(this.data.timer)
-      this.data.timer = setTimeout(() => {
+      wx.lin.hideMessage = ()=>{
         this.setData({
           status: false
-        })
-        if (this.data.success) this.data.success()
-        this.data.timer = null
-      }, this.properties.duration)
+        });
+      };
     }
   }
 });

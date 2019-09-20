@@ -1,10 +1,21 @@
+import computeOffset from '../behaviors/computeOffset';
 Component({
-  externalClasses: ['l-container-class','l-class'],
+  behaviors: [computeOffset],
+  externalClasses: ['l-container-class', 'l-class'],
   properties: {
     // 显示与隐藏
     show: {
       type: Boolean,
       value: false
+    },
+    opacity:{
+      type: String,
+      value: '1'
+    },
+    bgColor: String,
+    zIndex:{
+      type:String,
+      value: '776'
     },
     // 类型
     type: {
@@ -19,22 +30,54 @@ Component({
     // loading 动画大小
     size: {
       type: String,
-      value: 'default',
+      value: 'medium',
     },
     // 自定义
-    custom: {
-      type: Boolean,
-      value: false,
-    },
+    custom: Boolean,
     // 全屏模式
-    fullScreen: {
-      type: Boolean,
-      value: false,
-    }
+    fullScreen: Boolean
   },
+
+  attached() {
+    this._init();
+  },
+
+  pageLifetimes: {
+    show() {
+      this._init();
+    },
+  },
+
   methods: {
+    _init() {
+      wx.lin = wx.lin || {};
+      wx.lin.showLoading = (options) => {
+        const {
+          custom = false,
+          fullScreen = false,
+          color = '',
+          type = 'rotate',
+          size = 'medium',
+          opacity = '1'
+        } = { ...options };
+        this.setData({
+          custom,
+          fullScreen,
+          color,
+          type,
+          size,
+          opacity,
+          show: true
+        });
+      };
+      wx.lin.hideLoading = () => {
+        this.setData({
+          show: false
+        });
+      };
+    },
     // 阻止滑动
-    doNothingMove(e) {
+    doNothingMove() {
       // do nothing……
     },
   }

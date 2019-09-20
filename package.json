@@ -9,6 +9,6 @@
   "author": "Shenqingchuan",
   "license": "ISC",
   "dependencies": {
-    "lin-ui": "^0.5.7"
+    "lin-ui": "^0.6.2"
   }
 }

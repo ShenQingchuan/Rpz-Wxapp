@@ -5,8 +5,9 @@ Component({
    */
   externalClasses: [
     'l-class',
-    'l-input-container',
+    'l-container-class',
     'l-placeholder-class',
+    'l-icon-class',
     'l-input-class',
     'l-cancel-class'
   ],
@@ -19,18 +20,21 @@ Component({
       value: 'search'
     },
     placeholder: String,
-    confirmType: {
-      type: String,
-      value: 'search'
-    },
     cancelText: {
       type: String,
       value: '取消'
     },
     address: String,
+    custom: Boolean,
+    value: String,
+    type: String,
+    icon: {
+      type: String,
+      value: 'research'
+    },
     iconColor: {
       type: String,
-      value: '#333'
+      value: '#bdbdbd'
     },
     iconSize: {
       type: String,
@@ -54,10 +58,7 @@ Component({
     },
     adress: String,
     // 获取焦点
-    focus: {
-      type: Boolean,
-      value: false
-    },
+    focus: Boolean,
     // 是否显示清除按钮
     clear: {
       type: Boolean,
@@ -92,7 +93,10 @@ Component({
    */
   methods: {
     onCancel() {
-      this.triggerEvent('lincancel')
+      this.triggerEvent('lincancel', {}, {
+        bubbles: true,
+        composed: true
+      });
     },
     // input属性列表
     handleInputChange(event) {
@@ -137,7 +141,10 @@ Component({
       this.setData({
         value: ''
       });
-      this.triggerEvent('linclear', event.detail);
+      this.triggerEvent('linclear', event.detail, {
+        bubbles: true,
+        composed: true
+      });
     }
   }
 });

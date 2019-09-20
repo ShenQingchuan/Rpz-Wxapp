@@ -15,7 +15,7 @@
 		"checkInvalidKey": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.0.4",
+	"libVersion": "2.8.3",
 	"appid": "wx811aaed72af43da5",
 	"projectname": "Rpz-WxApp",
 	"debugOptions": {

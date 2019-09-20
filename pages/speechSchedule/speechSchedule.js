@@ -37,7 +37,7 @@ Page({
    */
   onReady: function() {
     this.flushSpeechScore();
-    this.flushLatestSpeech();
+    this.flushNextSpeech();
     this.flushMyHistoryList();
     this.flushCurrentSpeech();
   },
@@ -86,7 +86,11 @@ Page({
 
 
   trimTime: function(time_string) {
-    return time_string.replace(/T/g, ' ')
+    let _d = new Date(time_string);
+    const result = _d.toLocaleDateString().split('/').join('-')
+      + ' ' + _d.toTimeString().split(' ')[0];
+    console.log(result);
+    return result;
   },
 
   /**
@@ -185,10 +189,10 @@ Page({
   /**
    * 查询最近 [下] 一次的展讲时间
    */
-  flushLatestSpeech: function() {
+  flushNextSpeech: function() {
     wx.request({
-      // url: 'http://localhost:9090/v1/weixin/speech/getLatest',
-      url: 'https://api.sicnurpz.online/v1/weixin/speech/getLatest',
+      // url: 'http://localhost:9090/v1/weixin/speech/getNext',
+      url: 'https://api.sicnurpz.online/v1/weixin/speech/getNext',
       method: 'GET',
       success: (res) => {
         if (res.statusCode === 429) {

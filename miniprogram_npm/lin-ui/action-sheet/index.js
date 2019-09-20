@@ -1,5 +1,8 @@
+import zIndex from '../behaviors/zIndex';
+
 Component({
-  externalClasses: ['l-class-title', 'l-class-item', 'l-class-cancel'],
+  behaviors: [zIndex],
+  externalClasses: ['l-class-title', 'l-class-item', 'l-class-cancel','l-title-class','l-item-class','l-cancel-class'],
   properties: {
     locked: Boolean,
     showCancel: Boolean,
@@ -10,6 +13,10 @@ Component({
       value: '取消'
     },
     title: String,
+    zIndex:{
+      type:Number,
+      value: 777
+    },
     openApi: {
       type: Boolean,
       value: true,
@@ -27,7 +34,7 @@ Component({
     this.initUIAdapter();
   },
 
-  lifetimes: {
+  pageLifetimes: {
     show() {
       if (this.data.openApi) {
         this.initActionSheet();
@@ -49,25 +56,16 @@ Component({
       });
     },
     initActionSheet() {
-      const config = {
-        itemList: [],
-        success: null,
-        fail: null,
-        title: '',
-        locked: true,
-        cancelText: '取消',
-        showCancel: false
-      };
       wx.lin = wx.lin || {};
       wx.lin.showActionSheet = (options={}) => {
         const {
-          itemList = config.itemList,
-          success = config.success,
-          fail = config.fail,
-          title = config.title,
-          locked = config.locked,
-          cancelText = config.cancelText,
-          showCancel = config.showCancel,
+          itemList = [],
+          success = null,
+          fail = null,
+          title = '',
+          locked = false,
+          cancelText = '取消',
+          showCancel = false,
         } = options;
         this.setData({
           itemList: itemList.slice(0, 10),
@@ -87,7 +85,7 @@ Component({
         success
       } = this.data;
       success && success({ ...e.currentTarget.dataset });
-      this.triggerEvent('linitemtap', { ...e.currentTarget.dataset });
+      this.triggerEvent('linitemtap', { ...e.currentTarget.dataset },{ bubbles: true, composed: true });
       this._hideActionSheet();
     },
 
@@ -112,7 +110,7 @@ Component({
       });
       this.triggerEvent('lincancel', {
         errMsg: 'showactionsheet:fail cancel'
-      });
+      },{ bubbles: true, composed: true });
       this._hideActionSheet();
     },
 
