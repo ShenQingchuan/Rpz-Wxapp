@@ -9,7 +9,7 @@
 		</l-button>
 	</view>
 
-  <view class="init-input-box"   >
+  <view class="init-input-box" wx:if="{{inMask}}">
     <l-input label="真实姓名"  placeholder="请输入你的真实姓名" bind:linchange="onInputTrueName"
     value="{{truename}}" required rules="{{truenameRules}}" bind:linvalidate="validate">
     </l-input>
@@ -22,7 +22,7 @@
     </l-input>
   </view>
 
-  <view class="if-truename-mask"   bindtap="showMaskToast"></view>
+  <view class="if-truename-mask" wx:if="{{inMask}}" bindtap="showMaskToast"></view>
   <view class="if-truename-ok">
     <view class='search-bar'>
       <l-search-bar placeholder='你想找点儿啥？~'/>
