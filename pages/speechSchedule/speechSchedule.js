@@ -112,9 +112,7 @@ Page({
           return;
         }
         if (res.data.bundle_data.result instanceof Object) {
-          this.setData({
-            score: 2000
-          });
+          this.setData({score: 300});
           // 提示 初始化展讲积分成功
           wx.lin.showToast({
             title: '初始化展讲积分成功!',

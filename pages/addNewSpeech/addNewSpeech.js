@@ -91,13 +91,13 @@ Page({
   /**
    * 四个Input输入框、文本域textarea和单选框组的输入事件绑定
    */
-  inputSpeechTitle: function(e) { this.setData({ title: e.detail.detail.value}); },
-  inputSpeakerTitle: function (e) { this.setData({ speaker: e.detail.detail.value }); },
-  inputSicnuidTitle: function (e) { this.setData({ sicnuid: e.detail.detail.value }); },
-  inputSpeechDate: function(e) { this.setData({ date: e.detail.detail.value}); },
-  inputSpeechStartTime: function (e) { this.setData({ start_time: e.detail.detail.value}); },
-  inputSpeechEndTime: function (e) { this.setData({ end_time: e.detail.detail.value }); },
-  inputSpeechLocation: function (e) { this.setData({ location: e.detail.detail.value }); },
+  inputSpeechTitle: function(e) { this.setData({ title: e.detail.value}); },
+  inputSpeakerTitle: function (e) { this.setData({ speaker: e.detail.value }); },
+  inputSicnuidTitle: function (e) { this.setData({ sicnuid: e.detail.value }); },
+  inputSpeechDate: function(e) { this.setData({ date: e.detail.value}); },
+  inputSpeechStartTime: function (e) { this.setData({ start_time: e.detail.value}); },
+  inputSpeechEndTime: function (e) { this.setData({ end_time: e.detail.value }); },
+  inputSpeechLocation: function (e) { this.setData({ location: e.detail.value }); },
   // textarea 输入绑定
   inputSpeechDescription: function(e) { this.setData({ description: e.detail.detail.value}); },
   // 单选框组输入绑定

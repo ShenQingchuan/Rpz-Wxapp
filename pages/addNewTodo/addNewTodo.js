@@ -150,13 +150,13 @@ Page({
 	/**
 	 * 接下来的是一系列的 input 输入绑定事件：
 	 */
-	inputTitle(e){ this.setData({title: e.detail.detail.value}); },
-	inputContent(e) { this.setData({ content: e.detail.detail.value }); },
-	inputYear(e) { this.setData({ year: e.detail.detail.value }); },
-	inputMonth(e) { this.setData({ month: e.detail.detail.value }); },
-	inputDay(e) { this.setData({ day: e.detail.detail.value }); },
-	inputTime(e) { this.setData({ time: e.detail.detail.value }); },
-	inputAccessType(e) { this.setData({ access_type: e.detail.detail.value }); },
+	inputTitle(e){ this.setData({title: e.detail.value}); },
+	inputContent(e) { this.setData({ content: e.detail.value }); },
+	inputYear(e) { this.setData({ year: e.detail.value }); },
+	inputMonth(e) { this.setData({ month: e.detail.value }); },
+	inputDay(e) { this.setData({ day: e.detail.value }); },
+	inputTime(e) { this.setData({ time: e.detail.value }); },
+	inputAccessType(e) { this.setData({ access_type: e.detail.value }); },
 
 	// 清空表单数据到初始状态:
 	clearForm(){

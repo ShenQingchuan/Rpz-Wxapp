@@ -5,10 +5,18 @@ const app = getApp()
 Page({
   data: {
     truename: '',
+    sicnuid: '',
     truenameRules: [{
       required: true,
       type: 'string',
-      min: 2,max: 5,message: "长度在2-5个汉字之间"}],
+      min: 2,max: 5,
+      message: "长度在2-5个汉字之间"}],
+    sicnuidRules: [{
+      required: true,
+      type: 'string',
+      min: 10, max: 12, 
+      message: "学号长度在至少10位"
+    }],
     inMask: true,
 
     userInfo: {},
@@ -103,6 +111,7 @@ Page({
                   inMask: !response.data.bundle_data.officer_realname_status
                 }); // 取消遮罩
                 wx.setStorageSync('truename', response.data.bundle_data.officer_realname);
+                wx.setStorageSync('sicnuid', response.data.bundle_data.officer_sicnuid);
               }
               
 							//可以把openid存到本地缓存，方便以后调用
@@ -125,7 +134,7 @@ Page({
   // 在用户没有给后台提供本openid的真实姓名前 点击遮罩而触发的绑定事件：
   showMaskToast() {
     wx.lin.showToast({
-      title: '请先告诉我你的真实姓名~',
+      title: '请先告诉我你的真实姓名和学号~',
       icon: 'error',
       iconStyle: 'color:orange; size: 60',
     })
@@ -134,7 +143,13 @@ Page({
   // 正在输入真实姓名的监听事件：
   onInputTrueName(e) {
     this.setData({
-      truename: e.detail.detail.value
+      truename: e.detail.value
+    });
+  },
+  // 正在输入学号的监听事件：
+  onInputSicnuid(e) {
+    this.setData({
+      sicnuid: e.detail.value
     });
   },
 
@@ -165,7 +180,8 @@ Page({
       method: 'POST',
       data: {
         "openid": openid,
-        "truename": this.data.truename
+        "truename": this.data.truename,
+        "sicnuid": this.data.sicnuid,
       },
       success: response => {
         //后台创建本干事实名信息成功，撤下 mask
@@ -200,4 +216,4 @@ Page({
     })
   }
 
-})
+});

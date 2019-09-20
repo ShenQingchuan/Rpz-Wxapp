@@ -1,6 +1,5 @@
 <!--index.wxml-->
 <view>
-  <view class="if-truename-mask" wx:if="{{inMask}}" bindtap="showMaskToast"></view>
   <!-- 如果用户点击了还存在的遮罩，就提示他先去提交真实姓名 -->
   <l-toast class="above-mask" />
 
@@ -10,16 +9,20 @@
 		</l-button>
 	</view>
 
-  <view class="truname-input-box" wx:if="{{inMask}}">
-    <l-input label="真实姓名"  placeholder="请输入干事你的真实姓名" bind:linchange="onInputTrueName"
+  <view class="init-input-box"   >
+    <l-input label="真实姓名"  placeholder="请输入你的真实姓名" bind:linchange="onInputTrueName"
     value="{{truename}}" required rules="{{truenameRules}}" bind:linvalidate="validate">
+    </l-input>
+    <l-input label="你的学号"  placeholder="请输入你的学号" bind:linchange="onInputSicnuid"
+    value="{{sicnuid}}" required rules="{{sicnuidRules}}" bind:linvalidate="validate">
       <l-button slot="right" type="default"
       size="mini" bind:lintap="submitTrueName">
         确定
-      </l-button>
+    </l-button>
     </l-input>
   </view>
 
+  <view class="if-truename-mask"   bindtap="showMaskToast"></view>
   <view class="if-truename-ok">
     <view class='search-bar'>
       <l-search-bar placeholder='你想找点儿啥？~'/>
@@ -52,5 +55,4 @@
       <rpz-action-list />
     </view>
   </view>
-
 </view>
