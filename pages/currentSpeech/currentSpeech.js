@@ -107,18 +107,11 @@ Page({
         this.setData({
           signedList: res.data.bundle_data.result
         });
-        wx.lin.showToast({
-          title: '刷新签到表成功!',
-          icon: 'success',
-        });
+        wx.$successToast('刷新签到表成功!');
       },
       fail: (err) => {
         console.log(err.errMsg);
-        wx.lin.showToast({
-          title: `刷新签到列表出错! `,
-          icon: 'error',
-          iconStyle: 'color: red; size: 60',
-        });
+        wx.$errorToast(`刷新签到列表出错! `);
       },
     })
   },
@@ -139,14 +132,7 @@ Page({
           sicnuid: this.data.input_sicnuid,
         },
         success: (res) => {
-          if (res.statusCode === 429) {
-            wx.lin.showToast({
-              title: '请求太快啦！',
-              icon: 'error',
-              iconStyle: 'color: red; size: 60',
-            });
-            return;
-          }
+          if (wx.$ratelimitGuard(res.statusCode)) return;
           console.log(res.data);
           if (res.statusCode < 300 && res.statusCode >= 200) {
             // console.log(err.errMsg);
@@ -156,35 +142,19 @@ Page({
               signedList: res.data.bundle_data.result,
               input_sicnuid: '',
             });
-            wx.lin.showToast({
-              title: `签到成功!`,
-              icon: 'success',
-              iconStyle: 'color: cyan; size: 60',
-            });
+            wx.$successToast(`签到成功!`);
           } else if (res.statusCode === 406) {
             // 406 说明 POST 请求提交字段不完整
-            wx.lin.showToast({
-              title: `签到失败!提交数据不完整`,
-              icon: 'error',
-              iconStyle: 'color: red; size: 60',
-            });
+            wx.$errorToast(`签到失败!提交数据不完整`);
           }
         },
         fail: (err) => {
           console.log(err.errMsg);
-          wx.lin.showToast({
-            title: `签到出错! 原因: ${err.errMsg}`,
-            icon: 'error',
-            iconStyle: 'color: red; size: 60',
-          });
+          wx.$errorToast(`签到出错! 原因: ${err.errMsg}`);
         }
       });
     } else {
-      wx.lin.showToast({
-        title: `签到前必须填写学号!`,
-        icon: 'error',
-        iconStyle: 'color: red; size: 60',
-      });
+      wx.$errorToast(`签到前必须填写学号!`);
     }
   },
 
@@ -202,11 +172,7 @@ Page({
   validate_sicnuid_input: function(e) {
     if (e.detail.isError) {
       for (let i = 0; i < e.detail.errors.length; i++) {
-        wx.lin.showToast({
-          title: e.detail.errors[i].message,
-          icon: 'error',
-          iconStyle: 'color: red; size: 60',
-        });
+        wx.$errorToast(e.detail.errors[i].message);
       }
       this.setData({
         input_sicnuid: '',

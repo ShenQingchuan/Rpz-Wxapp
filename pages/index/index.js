@@ -133,11 +133,7 @@ Page({
 
   // 在用户没有给后台提供本openid的真实姓名前 点击遮罩而触发的绑定事件：
   showMaskToast() {
-    wx.lin.showToast({
-      title: '请先告诉我你的真实姓名和学号~',
-      icon: 'error',
-      iconStyle: 'color:orange; size: 60',
-    })
+    wx.$errorToast('请先告诉我你的真实姓名和学号~');
   },
 
   // 正在输入真实姓名的监听事件：
@@ -159,11 +155,7 @@ Page({
   validate(e) {
     if (e.detail.isError) {
       for (let i = 0; i < e.detail.errors.length; i++) {
-        wx.lin.showToast({
-          title: e.detail.errors[i].message,
-          icon: 'error',
-          iconStyle: 'color: red; size: 60',
-        });
+        wx.$errorToast(e.detail.errors[i].message);
       }
       this.setData({
         truename: ''
@@ -193,25 +185,13 @@ Page({
             key: 'truename',
             data: this.data.truename
           });
-          wx.lin.showToast({
-            title: '创建实名信息成功！',
-            icon: 'success',
-            iconStyle: 'color: green; size: 60',
-          });
+          wx.$successToast('创建实名信息成功！');
         } else {
-          wx.lin.showToast({
-            title: '创建实名信息请求失败！',
-            icon: 'error',
-            iconStyle: 'color: red; size: 60',
-          });
+          wx.$errorToast('创建实名信息请求失败！');
         }
       },
       fail: error => {
-        wx.lin.showToast({
-          title: '创建实名信息请求失败！',
-          icon: 'error',
-          iconStyle: 'color: red; size: 60',
-        });
+        wx.$errorToast('创建实名信息请求失败！');
       }
     })
   }

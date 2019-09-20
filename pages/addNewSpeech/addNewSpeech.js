@@ -109,11 +109,7 @@ Page({
   validate: function(e) {
     if (e.detail.isError) {
       for (let i = 0; i < e.detail.errors.length; i++) {
-        wx.lin.showToast({
-          title: e.detail.errors[i].message,
-          icon: 'error',
-          iconStyle: 'color: red; size: 60',
-        });
+        wx.$errorToast(e.detail.errors[i].message);
       }
       this.clearForm();
     }
@@ -158,34 +154,18 @@ Page({
       success: (res) => {
         // console.log(res.data);
         if(res.statusCode < 300) {
-          wx.lin.showToast({
-            title: '新的展讲项目提交成功, 准备开始审核...',
-            icon: 'success',
-            iconStyle: 'color: #34bfa3; size: 60',
-          });
+          wx.$successToast('新的展讲项目提交成功, 准备开始审核...');
           this.clearForm();
         } else if (res.statusCode === 406) {
-          wx.lin.showToast({
-            title: '您的表单项目填写不完整！',
-            icon: 'error',
-            iconStyle: 'color: red; size: 60',
-          });
+          wx.$errorToast('您的表单项目填写不完整！');
           this.clearForm();
         } else {
-          wx.lin.showToast({
-            title: `提交出错! 错误代码: ${res.data.error_code}`,
-            icon: 'error',
-            iconStyle: 'color: red; size: 60',
-          });
+          wx.$errorToast(`提交出错! 错误代码: ${res.data.error_code}`);
         }
       },
       fail: (err) => {
         // console.log(err.errMsg);
-        wx.lin.showToast({
-          title: `提交失败! 原因: ${err.errMsg}`,
-          icon: 'error',
-          iconStyle: 'color: red; size: 60',
-        });
+        wx.$errorToast(`提交失败! 原因: ${err.errMsg}`);
       }
     });
   },

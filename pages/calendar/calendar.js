@@ -51,11 +51,7 @@ Page({
 			success: res => {
 				// console.log(res);
         if (wx.$ratelimitGuard(res.statusCode)) return;
-				wx.lin.showToast({
-					title: '获取到如下日程信息',
-					icon: 'success',
-					iconStyle: 'color: cyan; size: 60',
-				});
+        wx.$successToast('获取到如下日程信息');
 				
         // 更新当前月份的日程信息和 todo_days，为标出是哪些天有待办事项做准备
 				let temp_todo_days = [];
@@ -99,11 +95,7 @@ Page({
 			},
 			fail: err => {
 				console.log(err);
-				wx.lin.showToast({
-					title: '获取日程信息时发生错误！',
-					icon: 'error',
-					iconStyle: 'color: red; size: 60',
-				});
+        wx.$errorToast('获取日程信息时发生错误！');
 			}
 		});
 	},

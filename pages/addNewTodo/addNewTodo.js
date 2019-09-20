@@ -103,11 +103,7 @@ Page({
 		let app = getApp();
 		if(this.data.accept_submit_license === false) {
 			// 如果没有经过讨论、不允许提交日程，并 toast 警告
-			wx.lin.showToast({
-				title: '请确保日程提交前经过审议',
-				icon: 'error',
-				iconStyle: 'color: red; size: 60',
-			});
+      wx.$errorToast('请确保日程提交前经过审议');
 		}
 		else {
 			let openid = wx.getStorageSync('openid');
@@ -127,20 +123,12 @@ Page({
 				},
 				success: res => {
 					//console.log(res);
-					wx.lin.showToast({
-						title: `新的日程记录添加成功！`,
-						icon: 'success',
-						iconStyle: 'color: cyan; size: 60',
-					});
+          wx.$successToast(`新的日程记录添加成功！`);
 					this.clearForm();	// 清除已经提交后的表单
 				},
 				fail: err => {
 					//console.log(err);
-					wx.lin.showToast({
-						title: '记录插入失败！',
-						icon: 'error',
-						iconStyle: 'color: red; size: 60',
-					});
+          wx.$errorToast('记录插入失败！');
 				}
 			});
 			
@@ -177,11 +165,7 @@ Page({
 	validate(e) { 
 		if(e.detail.isError){
 			for(let i=0; i<e.detail.errors.length; i++){
-				wx.lin.showToast({
-					title: e.detail.errors[i].message,
-					icon: 'error',
-					iconStyle: 'color: red; size: 60',
-				});
+        wx.$errorToast(e.detail.errors[i].message);
 			}
 			/* 一旦发现有误，清空所有输入框中的数据 */
 			this.clearForm();

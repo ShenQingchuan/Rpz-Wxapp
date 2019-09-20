@@ -103,40 +103,24 @@ Page({
       url: `https://api.sicnurpz.online/v1/weixin/speech/score?openid=${_openid}`,
       method: 'GET',
       success: (res) => {
-        if (res.statusCode === 429) {
-          wx.lin.showToast({
-            title: '请求太快啦！',
-            icon: 'error',
-            iconStyle: 'color: red; size: 60',
-          });
-          return;
-        }
+        if (wx.$ratelimitGuard(res.statusCode)) return;
         if (res.data.bundle_data.result instanceof Object) {
           this.setData({score: 300});
           // 提示 初始化展讲积分成功
-          wx.lin.showToast({
-            title: '初始化展讲积分成功!',
-            icon: 'success',
-          });
+          wx.$successToast('初始化展讲积分成功!');
           this.flushMyHistoryList();
         } else {
           this.setData({
             score: res.data.bundle_data.result
           });
           // 提示 展讲积分刷新成功
-          wx.lin.showToast({
-            title: '刷新展讲积分成功!',
-            icon: 'success',
-          });
+          wx.$successToast('刷新展讲积分成功!');
         }
       },
       fail: (err) => {
         // 在控制台打印错误信息
         console.log(err.errMsg);
-        wx.lin.showToast({
-          title: '刷新展讲积分失败!',
-          icon: 'error',
-        });
+        wx.$errorToast('刷新展讲积分失败!');
       }
     });
   },
@@ -163,10 +147,7 @@ Page({
           this.setData({
             myhistory: _result
           });
-          wx.lin.showToast({
-            title: '刷新个人展讲历史记录成功!',
-            icon: 'success',
-          });
+          wx.$successToast('刷新个人展讲历史记录成功!');
         } else {
           this.setData({
             myhistory: [],
@@ -176,10 +157,7 @@ Page({
       fail: (err) => {
         // 在控制台打印错误信息
         console.log(err.errMsg);
-        wx.lin.showToast({
-          title: '刷新个人展讲历史记录失败!',
-          icon: 'error',
-        });
+        wx.$errorToast('刷新个人展讲历史记录失败!');
       }
     });
   },
@@ -208,18 +186,12 @@ Page({
             });
           }
         } else {
-          wx.lin.showToast({
-            title: `获取下次展讲失败!错误代码: ${res.data.error_code}`,
-            icon: 'error',
-          });
+          wx.$errorToast(`获取下次展讲失败!错误代码: ${res.data.error_code}`);
         }
       },
       fail: (err) => {
         console.log(err.errMsg);
-        wx.lin.showToast({
-          title: '获取下次展讲信息出错!',
-          icon: 'error',
-        });
+        wx.$errorToast('获取下次展讲信息出错!');
       },
     });
   },
@@ -258,10 +230,7 @@ Page({
       },
       fail: (err) => {
         console.log(err.errMsg);
-        wx.lin.showToast({
-          title: '获取当前进行展讲出错!',
-          icon: 'error',
-        });
+        wx.$errorToast('获取当前进行展讲出错!');
       },
     });
   },

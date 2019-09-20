@@ -13,6 +13,24 @@ wx.$ratelimitGuard = function(statusCode) {
   return judge;
 }
 
+// 自定义的 success toast
+wx.$successToast = function(msg){
+  wx.lin.showToast({
+    title: msg,
+    icon: 'success',
+    iconStyle: 'color: #34bfa3; size: 60',
+  });
+}
+// 自定义的 error toast
+wx.$errorToast = function (msg) {
+  wx.lin.showToast({
+    title: msg,
+    icon: 'error',
+    iconStyle: 'color: #34bfa3; size: 60',
+  });
+}
+
+
 //app.js
 App({
   onLaunch: function () {
