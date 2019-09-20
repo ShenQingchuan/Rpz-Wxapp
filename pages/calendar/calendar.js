@@ -50,6 +50,7 @@ Page({
 			},
 			success: res => {
 				// console.log(res);
+        if (wx.$ratelimitGuard(res.statusCode)) return;
 				wx.lin.showToast({
 					title: '获取到如下日程信息',
 					icon: 'success',

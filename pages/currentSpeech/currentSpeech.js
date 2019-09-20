@@ -94,14 +94,7 @@ Page({
       url: 'https://api.sicnurpz.online/v1/weixin/speech/signedList/' + this.data.current_speechid,
       method: 'GET',
       success: (res) => {
-        if (res.statusCode === 429) {
-          wx.lin.showToast({
-            title: '请求太快啦！',
-            icon: 'error',
-            iconStyle: 'color: red; size: 60',
-          });
-          return;
-        }
+        if (wx.$ratelimitGuard(res.statusCode)) return;
         // console.log(res.data);
         res.data.bundle_data.result.forEach(item => {
           // （暂时不考虑同名同姓）如果签到表中有当前用户的名字则认为已经签到

@@ -118,6 +118,7 @@ Page({
             title: '初始化展讲积分成功!',
             icon: 'success',
           });
+          this.flushMyHistoryList();
         } else {
           this.setData({
             score: res.data.bundle_data.result
@@ -150,28 +151,27 @@ Page({
       url: `https://api.sicnurpz.online/v1/weixin/speech/myHistory?openid=${_openid}`,
       method: 'GET',
       success: (res) => {
-        if (res.statusCode === 429) {
-          wx.lin.showToast({
-            title: '请求太快啦！',
-            icon: 'error',
-            iconStyle: 'color: red; size: 60',
-          });
-          return;
-        }
+        if (wx.$ratelimitGuard(res.statusCode)) return;
         // console.log(res.data);
         let _result = res.data.bundle_data.result;
-        _result.forEach(item => {
-          const _start = new Date(item.start_time);
-          const _end = new Date(item.end_time);
-          item['timeGap'] = ` ${_start.toLocaleDateString()} ${_start.toLocaleTimeString('chinese', { hour12: false })} - ${_end.toLocaleTimeString('chinese', { hour12: false })}`
-        });
-        this.setData({
-          myhistory: _result
-        });
-        wx.lin.showToast({
-          title: '刷新个人展讲历史记录成功!',
-          icon: 'success',
-        });
+        if (_result) {
+          _result.forEach(item => {
+            const _start = new Date(item.start_time);
+            const _end = new Date(item.end_time);
+            item['timeGap'] = ` ${_start.toLocaleDateString()} ${_start.toLocaleTimeString('chinese', { hour12: false })} - ${_end.toLocaleTimeString('chinese', { hour12: false })}`
+          });
+          this.setData({
+            myhistory: _result
+          });
+          wx.lin.showToast({
+            title: '刷新个人展讲历史记录成功!',
+            icon: 'success',
+          });
+        } else {
+          this.setData({
+            myhistory: [],
+          });
+        }
       },
       fail: (err) => {
         // 在控制台打印错误信息
@@ -193,14 +193,7 @@ Page({
       url: 'https://api.sicnurpz.online/v1/weixin/speech/getNext',
       method: 'GET',
       success: (res) => {
-        if (res.statusCode === 429) {
-          wx.lin.showToast({
-            title: '请求太快啦！',
-            icon: 'error',
-            iconStyle: 'color: red; size: 60',
-          });
-          return;
-        }
+        if (wx.$ratelimitGuard(res.statusCode)) return;
         if (res.statusCode < 300 && res.statusCode >= 200) {
           if (Object.keys(res.data.bundle_data.result).length > 0) { // 确实查询到了结果
             // console.log(res.data.bundle_data.result);
@@ -240,14 +233,7 @@ Page({
       url: 'https://api.sicnurpz.online/v1/weixin/speech/getCurrent',
       method: 'GET',
       success: (res) => {
-        if (res.statusCode === 429) {
-          wx.lin.showToast({
-            title: '请求太快啦！',
-            icon: 'error',
-            iconStyle: 'color: red; size: 60',
-          });
-          return;
-        }
+        if (wx.$ratelimitGuard(res.statusCode)) return;
         // console.log(res.data);
         if (res.statusCode == 204) {
           // 说明当前并没有展讲进行中...
