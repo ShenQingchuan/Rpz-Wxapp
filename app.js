@@ -1,14 +1,15 @@
 
 // 自定义的 ajax 429 Too Many Request 判断器
+// 返回的结果 表示 是否需要结束 ajax 回调
 wx.$ratelimitGuard = function(statusCode) {
-  let judge = true;
+  let judge = false;
   if (statusCode === 429) {
     wx.lin.showToast({
       title: '请求太快啦！',
       icon: 'error',
       iconStyle: 'color: red; size: 60',
     });
-    judge = false;
+    judge = true;
   }
   return judge;
 }
