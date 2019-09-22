@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "l-card": "../miniprogram_npm/lin-ui/card",
+    "l-button": "../miniprogram_npm/lin-ui/button",
+    "l-list": "../miniprogram_npm/lin-ui/list",
+    "l-toast": "../miniprogram_npm/lin-ui/toast",
+    "l-icon": "../miniprogram_npm/lin-ui/icon"
+  }
+}

@@ -3,10 +3,6 @@
   padding: 30rpx;
 }
 
-.container {
-  margin-top: 15rpx;
-}
-
 .balance-count {
   margin-top: 15rpx;
   font-size: 49rpx;

@@ -1,0 +1,21 @@
+/* pages/speechJudge/speechJudge.wxss */
+
+.speech-history-content {
+  margin: 15rpx 0;
+  padding: 0 15rpx;
+}
+.speech-history-list {
+  margin: 46rpx 0;
+}
+.speech-history-desc {
+  color: gray !important;
+}
+
+.judge-form-box {
+  margin: 46rpx;
+}
+.list-right-slot {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: gray;
+}

@@ -1,0 +1,43 @@
+<!--pages/speechJudge/speechJudge.wxml-->
+<l-toast />
+
+<l-card type="primary" class="container bold-text"
+  plaintext="{{true}}" title="🗳 等待打分的历史展讲: ">
+  <view class="speech-history-list">
+    <!-- 若没有组织过（数组长度为 0） -->
+    <l-list wx:if="{{needJudge.length === 0}}"
+      title="所有历史展讲都已经打分完毕!" 
+      icon="time"
+      desc="快去组织下一次展讲活动吧!"
+      l-class-desc="speech-history-desc" />
+
+    <view wx:else>
+      <!-- 若数组长度不为 0则 wx:for -->
+      <l-list wx:for="{{needJudge}}" wx:for-index="index" wx:key="history_key"
+        title="{{item.title}}" 
+        desc="{{'展讲者: ' + item.speaker}}"
+        data-jkey="{{index}}"
+        icon="time" l-class-desc="speech-history-desc" 
+        bind:lintap="onJudgeItemTap"
+      />
+    </view>
+  </view>
+</l-card>
+
+<l-card wx:if="{{needJudge.length > 0}}"
+  type="primary" 
+  class="container"
+  plaintext="{{true}}" 
+  title="{{'👉选择的是: ' + needJudge[selectedJudgeIndex]['title']}}">
+  <view class="judge-form-box">
+    <l-list title="{{'签到数:' + needJudge[selectedJudgeIndex]['audiences'].length}}"
+      is-link="{{false}}"
+      desc="{{'地点: ' + needJudge[selectedJudgeIndex]['location']}}">
+      <view slot="right-section">
+        <text class="list-right-slot">
+          {{ '组别: ' + needJudge[selectedJudgeIndex]['group'] }} 
+        </text>
+      </view>
+    </l-list>
+  </view>
+</l-card>

@@ -5,7 +5,8 @@
     "pages/addNewTodo/addNewTodo",
     "pages/speechSchedule/speechSchedule",
     "pages/addNewSpeech/addNewSpeech",
-    "pages/currentSpeech/currentSpeech"
+    "pages/currentSpeech/currentSpeech",
+    "pages/speechJudge/speechJudge"
   ],
   "window": {
     "backgroundTextStyle": "light",

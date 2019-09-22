@@ -37,7 +37,8 @@
 				</l-radio-group>
 
 				<view class="addNewTodo-radio">
-					<l-radio-group bind:linchange="onChangeRadio" current="{{accept}}">
+					<l-radio-group bind:linchange="onChangeRadio" 
+           none-checked="{{true}}">
 						<l-radio key="accept" >
               已经经过讨论,允许提交该日程
             </l-radio>

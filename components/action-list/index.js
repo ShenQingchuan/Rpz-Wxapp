@@ -38,7 +38,7 @@ Component({
 				{
 					'title': '评价打分器', 'icon': 'success',
 					'tag-content': null, 'tag-color': null,
-					'url': null
+          'url': '/pages/speechJudge/speechJudge'
 				},
 			],
 
