@@ -2,7 +2,7 @@
 <l-toast />
 
 <l-card type="primary" class="container bold-text"
-  plaintext="{{true}}" title="🗳 等待打分的历史展讲: ">
+  plaintext="{{true}}" title="🗳 等待您打分的历史展讲: ">
   <view class="speech-history-list">
     <!-- 若没有组织过（数组长度为 0） -->
     <l-list wx:if="{{needJudge.length === 0}}"
@@ -24,14 +24,17 @@
   </view>
 </l-card>
 
+<!-- https://rpzoss.oss-cn-chengdu.aliyuncs.com/Public/9-23-2019-c62a-iatixpm9684652.jpg -->
 <l-card wx:if="{{needJudge.length > 0}}"
   type="primary" 
   class="container"
   plaintext="{{true}}" 
   title="{{'👉选择的是: ' + needJudge[selectedJudgeIndex]['title']}}">
-  <view class="judge-form-box">
-    <l-list title="{{'签到数:' + needJudge[selectedJudgeIndex]['audiences'].length}}"
-      is-link="{{false}}"
+  
+  <view wx:if="{{needJudge[selectedJudgeIndex]['audiences'].length > 0 && canIJudgeIt}}"
+    class="judge-form-box">
+    <l-list title="签到状态: 已签到"
+      is-link="{{false}}" icon="notification"
       desc="{{'地点: ' + needJudge[selectedJudgeIndex]['location']}}">
       <view slot="right-section">
         <text class="list-right-slot">
@@ -40,4 +43,22 @@
       </view>
     </l-list>
   </view>
+
+  <l-card wx:else
+    type="primary" 
+    image="https://rpzoss.oss-cn-chengdu.aliyuncs.com/Public/9-23-2019-c62a-iatixpm9684652.jpg"
+    title="你不在这次展讲的签到表中哦！"
+    class="bold-text"
+    l-img-class="supsigntip-img">
+    <!-- 此处为content -->
+    <view class="supsigntip-content">
+      您是否要补签呢？
+    </view>
+    <l-button 
+      icon="backward" icon-size="30" icon-color="#fff"
+      size="medium" shape="semicircle" 
+      bind:lintap="submitSupplementSign">
+      <text> 我要补签 </text>
+    </l-button>
+  </l-card> 
 </l-card>

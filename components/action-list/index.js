@@ -26,6 +26,11 @@ Component({
 		this.setData({
 			public_actions: [
         {
+          'title': '组别确认处', 'icon': 'add',
+          'tag-content': null, 'tag-color': null,
+          'url': null
+        },
+        {
           'title': '新建展讲项目', 'icon': 'more',
           'tag-content': null, 'tag-color': null,
           'url': '/pages/addNewSpeech/addNewSpeech'

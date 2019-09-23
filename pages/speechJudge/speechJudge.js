@@ -6,7 +6,8 @@ Page({
    */
   data: {
     needJudge: [],
-    selectedJudgeIndex: 0
+    selectedJudgeIndex: 0,
+    canIJudgeIt: false,
   },
 
   /**
@@ -69,16 +70,18 @@ Page({
    * 获取需要打分的展讲项目列表
    */
   flushJudgeList: function () {
+    const _sicnuid = wx.getStorageSync('sicnuid');
+
     wx.request({
-      url: 'http://localhost:9090/v1/weixin/speech/judgeList',
-      // url: 'https://api.sicnurpz.online/v1/weixin/speech/judgeList',
+      url: `http://localhost:9090/v1/weixin/speech/judgeList`,
+      // url: `https://api.sicnurpz.online/v1/weixin/speech/judgeList`,
       success: (res) => {
         // console.log(res.data);
         if (res.statusCode >= 200 && res.statusCode < 300) {
           this.setData({
             needJudge: res.data.bundle_data.result,
           });
-          wx.$successToast('获取打分列表成功');
+          wx.$successToast('获取可打分展讲列表成功');
         }
       },
       fail: (err) => {
@@ -88,12 +91,29 @@ Page({
   },
 
   /**
-   * 
+   * 选择要打分的展讲项目
    */
   onJudgeItemTap: function (e) {
+    const _index = e.target.dataset['jkey'];
     this.setData({
-      selectedJudgeIndex: e.target.dataset['jkey']
+      selectedJudgeIndex: _index,
     });
-  }
+    // 只有自己签到了的展讲项目才能打分
+    for(let i=0; i<this.data.needJudge[_index]['audiences'].length; i++) {
+      if (this.data.needJudge[_index]['audiences'][i].sicnuid === wx.getStorageSync('sicnuid')) {
+        this.setData({
+          canIJudgeIt: true,
+        });
+        break;
+      }
+    }
+  },
+
+  /**
+   * 
+   */
+  submitSupplementSign: function () {
+    
+  },
 
 })

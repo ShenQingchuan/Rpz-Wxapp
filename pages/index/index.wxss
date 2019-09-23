@@ -33,7 +33,7 @@
 }
 .action-list-container {
 	padding: 15rpx;
-  height: 260rpx;
+  height: 360rpx;
 }
 .user-avatar {
 	text-align: center;

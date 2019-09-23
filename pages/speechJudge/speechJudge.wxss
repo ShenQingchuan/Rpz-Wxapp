@@ -19,3 +19,12 @@
   font-weight: bold;
   color: gray;
 }
+
+.supsigntip-content {
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+  color: gray;
+}
+.supsigntip-img {
+  border-radius: 50rpx;
+}
