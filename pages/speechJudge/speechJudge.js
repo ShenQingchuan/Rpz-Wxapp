@@ -211,7 +211,7 @@ Page({
   submitJudgeScore: function () {
     wx.request({
       // url: 'http://localhost:9090/v1/weixin/speech/judge',
-      url: 'http://api.sicnurpz.online/v1/weixin/speech/judge',
+      url: 'https://api.sicnurpz.online/v1/weixin/speech/judge',
       method: 'POST',
       data: {
         'aim_id': this.data.needJudge[this.data.selectedJudgeIndex]['_id'],
