@@ -142,11 +142,11 @@ Page({
       data: {
         speechid: this.data.current_speechid,
         name: wx.getStorageSync("truename"),
+        openid: wx.getStorageSync("openid"),
         sicnuid: this.data.input_sicnuid,
       },
       success: (res) => {
         if (wx.$ratelimitGuard(res.statusCode)) return;
-        console.log(res.data);
         if (res.statusCode < 300 && res.statusCode >= 200) {
           // console.log(err.errMsg);
           // 签到成功会返回当前的签到列表

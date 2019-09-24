@@ -9,7 +9,7 @@ Page({
     selectedJudgeIndex: 0,
     
     canIJudgeIt: false,
-    myAudienceIndex: 0,
+    myAudienceIndex: -1,
     mySignStatus: '',
 
     score: 50,
@@ -90,7 +90,9 @@ Page({
 
           // 确定默认项（数组第一项）本用户是否可以打分
           this.flushCanIJudgeIt();
-          this.reflectSignStatus();
+          if (this.data.myAudienceIndex >= 0) {
+            this.reflectSignStatus();
+          }
         }
       },
       fail: (err) => {
@@ -108,7 +110,9 @@ Page({
       selectedJudgeIndex: _index,
     });
     this.flushCanIJudgeIt();
-    this.reflectSignStatus()
+    if(this.data.myAudienceIndex >= 0) { 
+      this.reflectSignStatus();
+    }
   },
 
   /**
@@ -142,6 +146,7 @@ Page({
     if (this.data.needJudge[_index]) {
       for (let i = 0; i < this.data.needJudge[_index]['audiences'].length; i++) {
         if (this.data.needJudge[_index]['audiences'][i].sicnuid === wx.getStorageSync('sicnuid')) {
+          console.log(i);
           this.setData({
             canIJudgeIt: true,
             myAudienceIndex: i,
