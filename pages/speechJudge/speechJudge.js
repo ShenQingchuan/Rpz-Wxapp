@@ -76,8 +76,8 @@ Page({
     const _sicnuid = wx.getStorageSync('sicnuid');
 
     wx.request({
-      url: `http://localhost:9090/v1/weixin/speech/judgeList`,
-      // url: `https://api.sicnurpz.online/v1/weixin/speech/judgeList`,
+      // url: `http://localhost:9090/v1/weixin/speech/judgeList`,
+      url: `https://api.sicnurpz.online/v1/weixin/speech/judgeList`,
       success: (res) => {
         // console.log(res.data);
         if (res.statusCode >= 200 && res.statusCode < 300) {
@@ -152,8 +152,8 @@ Page({
    */
   submitSupplementSign: function () {
     wx.request({
-      url: 'http://localhost:9090/v1/weixin/speech/supplementSign',
-      // url: 'https://api.sicnurpz.online/v1/weixin/speech/supplementSign',
+      // url: 'http://localhost:9090/v1/weixin/speech/supplementSign',
+      url: 'https://api.sicnurpz.online/v1/weixin/speech/supplementSign',
       method: 'POST',
       data: {
         'openid': wx.getStorageSync('openid'),
