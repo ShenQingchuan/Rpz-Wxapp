@@ -25,6 +25,9 @@
   margin-bottom: 30rpx;
   color: gray;
 }
+.supsigntip-btn {
+  padding: 0 22rpx !important;
+}
 .supsigntip-img {
   border-radius: 50rpx;
 }

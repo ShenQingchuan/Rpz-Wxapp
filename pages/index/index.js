@@ -183,7 +183,11 @@ Page({
           });
           wx.setStorage({
             key: 'truename',
-            data: this.data.truename
+            data: this.data.truename,
+          });
+          wx.setStorage({
+            key: 'sicnuid',
+            data: this.data.sicnuid,
           });
           wx.$successToast('创建实名信息成功！');
         } else {

@@ -31,9 +31,9 @@
   plaintext="{{true}}" 
   title="{{'👉选择的是: ' + needJudge[selectedJudgeIndex]['title']}}">
   
-  <view wx:if="{{needJudge[selectedJudgeIndex]['audiences'].length > 0 && canIJudgeIt}}"
+  <view wx:if="{{canIJudgeIt}}"
     class="judge-form-box">
-    <l-list title="签到状态: 已签到"
+    <l-list title="{{'签到状态: ' + mySignStatus}}"
       is-link="{{false}}" icon="notification"
       desc="{{'地点: ' + needJudge[selectedJudgeIndex]['location']}}">
       <view slot="right-section">
@@ -54,11 +54,11 @@
     <view class="supsigntip-content">
       您是否要补签呢？
     </view>
-    <l-button 
+    <l-button l-class="supsigntip-btn"
       icon="backward" icon-size="30" icon-color="#fff"
       size="medium" shape="semicircle" 
       bind:lintap="submitSupplementSign">
       <text> 我要补签 </text>
     </l-button>
-  </l-card> 
+  </l-card>
 </l-card>

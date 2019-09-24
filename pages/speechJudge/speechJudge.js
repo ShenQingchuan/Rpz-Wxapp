@@ -7,7 +7,10 @@ Page({
   data: {
     needJudge: [],
     selectedJudgeIndex: 0,
+    
     canIJudgeIt: false,
+    myAudienceIndex: 0,
+    mySignStatus: '',
   },
 
   /**
@@ -82,6 +85,10 @@ Page({
             needJudge: res.data.bundle_data.result,
           });
           wx.$successToast('获取可打分展讲列表成功');
+
+          // 确定默认项（数组第一项）本用户是否可以打分
+          this.flushCanIJudgeIt();
+          this.reflectSignStatus();
         }
       },
       fail: (err) => {
@@ -98,11 +105,42 @@ Page({
     this.setData({
       selectedJudgeIndex: _index,
     });
-    // 只有自己签到了的展讲项目才能打分
-    for(let i=0; i<this.data.needJudge[_index]['audiences'].length; i++) {
+    this.flushCanIJudgeIt();
+    this.reflectSignStatus()
+  },
+
+
+  /**
+   * 已签到状态的反射，正常签到亦或是补签、代签等
+   */
+  reflectSignStatus: function () {
+    let _status = '';
+    const _s = this.data.needJudge[this.data.selectedJudgeIndex]['audiences'][this.data.myAudienceIndex]['status'];
+    switch (_s) {
+      case 1:  // 正常签到
+        _status = '已正常签到'; break;
+      case 2:
+        _status = '已补签'; break;
+      case 3:
+        _status = '他人已代签'; break;
+      default:
+        _status = '签到未完成'; break;
+    }
+    this.setData({
+      mySignStatus: _status,
+    });
+  },
+  
+  /**
+   * 只有自己签到了的展讲项目才能打分
+   */
+  flushCanIJudgeIt: function () {
+    const _index = this.data.selectedJudgeIndex;
+    for (let i = 0; i < this.data.needJudge[_index]['audiences'].length; i++) {
       if (this.data.needJudge[_index]['audiences'][i].sicnuid === wx.getStorageSync('sicnuid')) {
         this.setData({
           canIJudgeIt: true,
+          myAudienceIndex: i,
         });
         break;
       }
@@ -113,7 +151,33 @@ Page({
    * 
    */
   submitSupplementSign: function () {
-    
+    wx.request({
+      url: 'http://localhost:9090/v1/weixin/speech/supplementSign',
+      // url: 'https://api.sicnurpz.online/v1/weixin/speech/supplementSign',
+      method: 'POST',
+      data: {
+        'openid': wx.getStorageSync('openid'),
+        'name': wx.getStorageSync('truename'),
+        'sicnuid': wx.getStorageSync('sicnuid'),
+        'aim_id': this.data.needJudge[this.data.selectedJudgeIndex]['_id'],
+      },
+      success: (res) => {
+        if(res.statusCode >= 200 && res.statusCode < 300) {
+          console.log(res.data);
+          //补签成功则本用户可以对该次展讲进行打分
+          this.setData({
+            canIJudgeIt: true,
+          });
+          wx.$successToast('补签成功!');
+        } else {
+          wx.$errorToast('补签失败!');
+        }
+      },
+      fail: (err) => {
+        console.log(err.errMsg);
+        wx.$errorToast('补签出错了!');
+      }
+    })
   },
 
 })
