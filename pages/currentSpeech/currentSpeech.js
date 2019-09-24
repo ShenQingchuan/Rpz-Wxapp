@@ -10,6 +10,7 @@ Page({
     current_title: '',
     current_speaker: '',
     current_end_time: '',
+    current_sicnuid: '',
 
     // 签到相关
     didMeSign: false,
@@ -33,6 +34,7 @@ Page({
       current_end_time: options.cur_endtime,
       current_title: options.cur_title,
       current_speaker: options.cur_speaker,
+      current_sicnuid: options.cur_sicnuid,
     });
   },
 
@@ -117,45 +119,53 @@ Page({
   },
 
   /**
+   * 签到提交请求之前的检验工作
+   */
+  onSignStart: function () {
+    if (this.data.input_sicnuid === "") {
+      wx.$errorToast(`签到前必须填写学号!`); return;
+    }
+    if (this.data.current_sicnuid === this.data.input_sicnuid) {
+      wx.$errorToast(`不需要也不能签到自己的展讲!`); return;
+    } 
+    this.submitSign();
+  },
+
+  /**
    * 提交签到请求
    */
   submitSign: function() {
-    // 必须确保签到前填了学号
-    if (this.data.input_sicnuid !== "") {
-      wx.request({
-        // url: 'http://localhost:9090/v1/weixin/speech/signIn',
-        url: 'https://api.sicnurpz.online/v1/weixin/speech/signIn',
-        method: 'POST',
-        data: {
-          speechid: this.data.current_speechid,
-          name: wx.getStorageSync("truename"),
-          sicnuid: this.data.input_sicnuid,
-        },
-        success: (res) => {
-          if (wx.$ratelimitGuard(res.statusCode)) return;
-          console.log(res.data);
-          if (res.statusCode < 300 && res.statusCode >= 200) {
-            // console.log(err.errMsg);
-            // 签到成功会返回当前的签到列表
-            this.setData({
-              didMeSign: true,
-              signedList: res.data.bundle_data.result,
-              input_sicnuid: '',
-            });
-            wx.$successToast(`签到成功!`);
-          } else if (res.statusCode === 406) {
-            // 406 说明 POST 请求提交字段不完整
-            wx.$errorToast(`签到失败!提交数据不完整`);
-          }
-        },
-        fail: (err) => {
-          console.log(err.errMsg);
-          wx.$errorToast(`签到出错! 原因: ${err.errMsg}`);
+    wx.request({
+      // url: 'http://localhost:9090/v1/weixin/speech/signIn',
+      url: 'https://api.sicnurpz.online/v1/weixin/speech/signIn',
+      method: 'POST',
+      data: {
+        speechid: this.data.current_speechid,
+        name: wx.getStorageSync("truename"),
+        sicnuid: this.data.input_sicnuid,
+      },
+      success: (res) => {
+        if (wx.$ratelimitGuard(res.statusCode)) return;
+        console.log(res.data);
+        if (res.statusCode < 300 && res.statusCode >= 200) {
+          // console.log(err.errMsg);
+          // 签到成功会返回当前的签到列表
+          this.setData({
+            didMeSign: true,
+            signedList: res.data.bundle_data.result,
+            input_sicnuid: '',
+          });
+          wx.$successToast(`签到成功!`);
+        } else if (res.statusCode === 406) {
+          // 406 说明 POST 请求提交字段不完整
+          wx.$errorToast(`签到失败!提交数据不完整`);
         }
-      });
-    } else {
-      wx.$errorToast(`签到前必须填写学号!`);
-    }
+      },
+      fail: (err) => {
+        console.log(err.errMsg);
+        wx.$errorToast(`签到出错! 原因: ${err.errMsg}`);
+      }
+    });
   },
 
   /**
@@ -163,11 +173,11 @@ Page({
    */
   inputSignSicnuid: function(e) {
     this.setData({
-      input_sicnuid: e.detail.detail.value
+      input_sicnuid: e.detail.value
     });
   },
   /**
-   * 检验填写学号的方法：
+   * 检验填写的学号：
    */
   validate_sicnuid_input: function(e) {
     if (e.detail.isError) {

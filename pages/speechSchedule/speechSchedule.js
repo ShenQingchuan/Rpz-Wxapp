@@ -18,6 +18,7 @@ Page({
     current_end_time: '',
     current_speaker: '某展讲人..',
     current_title: '某主题..',
+    current_sicnuid: '',
 
     // 下次展讲详情：
     next_start_time: '',
@@ -104,23 +105,25 @@ Page({
       method: 'GET',
       success: (res) => {
         if (wx.$ratelimitGuard(res.statusCode)) return;
-        if (res.data.bundle_data.result instanceof Object) {
+        if (res.statusCode === 201) {
           this.setData({score: 300});
           // 提示 初始化展讲积分成功
           wx.$successToast('初始化展讲积分成功!');
           this.flushMyHistoryList();
-        } else {
+        } else if(res.statusCode === 200) {
           this.setData({
             score: res.data.bundle_data.result
           });
           // 提示 展讲积分刷新成功
           wx.$successToast('刷新展讲积分成功!');
+        } else {
+          wx.$errorToast('刷新展讲积分失败!');  
         }
       },
       fail: (err) => {
         // 在控制台打印错误信息
         console.log(err.errMsg);
-        wx.$errorToast('刷新展讲积分失败!');
+        wx.$errorToast('刷新展讲积分出错!');
       }
     });
   },
@@ -136,7 +139,6 @@ Page({
       method: 'GET',
       success: (res) => {
         if (wx.$ratelimitGuard(res.statusCode)) return;
-        // console.log(res.data);
         let _result = res.data.bundle_data.result;
         if (_result) {
           _result.forEach(item => {
@@ -214,6 +216,7 @@ Page({
             current_end_time: '',
             current_speaker: '无',
             current_title: '无',
+            current_sicnuid: '',
           });
         } else {
           // 说明有数据，那么为其准备显示需要的数据：
@@ -225,6 +228,7 @@ Page({
             current_end_time: this.trimTime(result.end_time),
             current_speaker: result.speaker,
             current_title: result.title,
+            current_sicnuid: result.sicnuid,
           });
         }
       },
@@ -244,6 +248,7 @@ Page({
         `?cur_title=${this.data.current_title}` +
         `&cur_speaker=${this.data.current_speaker}` +
         `&cur_endtime=${this.data.current_end_time}` +
+        `&cur_sicnuid=${this.data.current_sicnuid}` +
         `&cur_speechid=${this.data.current_speechid}`,
     });
   },

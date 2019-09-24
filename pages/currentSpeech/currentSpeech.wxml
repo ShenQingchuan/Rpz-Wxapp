@@ -20,7 +20,7 @@
         rules="{{sicnuid_rules}}"
         placeholder="请填写学号以完成签到" 
         bind:linchange="inputSignSicnuid"  />
-      <l-button special="{{true}}" bind:lintap="submitSign">
+      <l-button special="{{true}}" bind:lintap="onSignStart">
         <!-- 此处是插槽自定义内容 -->
         <view class="sign-btn flex-container">
           <l-icon name="checked" size="55" />

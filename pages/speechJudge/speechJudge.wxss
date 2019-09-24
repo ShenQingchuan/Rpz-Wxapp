@@ -13,6 +13,12 @@
 
 .judge-form-box {
   margin: 46rpx;
+  text-align: center;
+}
+.judge-score {
+  justify-content: center !important;
+  display: flex;
+  margin-top: 30rpx !important;
 }
 .list-right-slot {
   font-size: 26rpx;

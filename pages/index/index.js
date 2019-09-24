@@ -102,9 +102,12 @@ Page({
 							secret: '8b101090e568d97e266cf8a0d6d3028e',
 							code: res.code
 						},
-						success: response => {
-              console.log(response);
+						success: (response) => {
+              console.log(response.data);
 							let openid = response.data.bundle_data.wx_bundle.openid;
+              //可以把openid存到本地缓存，方便以后调用
+              wx.setStorageSync('openid', openid);
+
               if (response.data.bundle_data.officer_realname_status) {
                 // 如果 后端mongodb中该干事实名信息已存在
                 this.setData({
@@ -113,15 +116,12 @@ Page({
                 wx.setStorageSync('truename', response.data.bundle_data.officer_realname);
                 wx.setStorageSync('sicnuid', response.data.bundle_data.officer_sicnuid);
               }
-              
-							//可以把openid存到本地缓存，方便以后调用
-							wx.setStorageSync('openid', openid);
 
 							app.globalData.user_openid = openid;
               console.log('getOpenID 执行成功...');
 						},
 						fail: error => {
-							console.log('[ERROR] - openid 解析失败...');
+							console.log('[ERROR] - openid 解析出错...');
 						}
 					});
 				}

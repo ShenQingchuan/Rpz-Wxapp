@@ -11,6 +11,8 @@ Page({
     canIJudgeIt: false,
     myAudienceIndex: 0,
     mySignStatus: '',
+
+    score: 50,
   },
 
   /**
@@ -76,8 +78,8 @@ Page({
     const _sicnuid = wx.getStorageSync('sicnuid');
 
     wx.request({
-      // url: `http://localhost:9090/v1/weixin/speech/judgeList`,
-      url: `https://api.sicnurpz.online/v1/weixin/speech/judgeList`,
+      // url: `http://localhost:9090/v1/weixin/speech/judgeList/${_sicnuid}`,
+      url: `https://api.sicnurpz.online/v1/weixin/speech/judgeList/${_sicnuid}`,
       success: (res) => {
         // console.log(res.data);
         if (res.statusCode >= 200 && res.statusCode < 300) {
@@ -109,26 +111,27 @@ Page({
     this.reflectSignStatus()
   },
 
-
   /**
    * 已签到状态的反射，正常签到亦或是补签、代签等
    */
   reflectSignStatus: function () {
-    let _status = '';
-    const _s = this.data.needJudge[this.data.selectedJudgeIndex]['audiences'][this.data.myAudienceIndex]['status'];
-    switch (_s) {
-      case 1:  // 正常签到
-        _status = '已正常签到'; break;
-      case 2:
-        _status = '已补签'; break;
-      case 3:
-        _status = '他人已代签'; break;
-      default:
-        _status = '签到未完成'; break;
+    if (this.data.needJudge.length > 0) {
+      let _status = '';
+      const _s = this.data.needJudge[this.data.selectedJudgeIndex]['audiences'][this.data.myAudienceIndex]['status'];
+      switch (_s) {
+        case 1:  // 正常签到
+          _status = '已正常签到'; break;
+        case 2:
+          _status = '已补签'; break;
+        case 3:
+          _status = '他人已代签'; break;
+        default:
+          _status = '签到未完成'; break;
+      }
+      this.setData({
+        mySignStatus: _status,
+      });
     }
-    this.setData({
-      mySignStatus: _status,
-    });
   },
   
   /**
@@ -136,19 +139,30 @@ Page({
    */
   flushCanIJudgeIt: function () {
     const _index = this.data.selectedJudgeIndex;
-    for (let i = 0; i < this.data.needJudge[_index]['audiences'].length; i++) {
-      if (this.data.needJudge[_index]['audiences'][i].sicnuid === wx.getStorageSync('sicnuid')) {
-        this.setData({
-          canIJudgeIt: true,
-          myAudienceIndex: i,
-        });
-        break;
+    if (this.data.needJudge[_index]) {
+      for (let i = 0; i < this.data.needJudge[_index]['audiences'].length; i++) {
+        if (this.data.needJudge[_index]['audiences'][i].sicnuid === wx.getStorageSync('sicnuid')) {
+          this.setData({
+            canIJudgeIt: true,
+            myAudienceIndex: i,
+          });
+          break;
+        }
       }
     }
   },
 
   /**
-   * 
+   * 调整打分的响应事件
+   */
+  onScoreChange: function (e) {
+    this.setData({
+      score: e.detail.count
+    });
+  },
+
+  /**
+   * 提交补签请求..
    */
   submitSupplementSign: function () {
     wx.request({
@@ -178,6 +192,52 @@ Page({
         wx.$errorToast('补签出错了!');
       }
     })
+  },
+
+  /**
+   * 补签之前的一些检查、验证
+   */
+  onSupplementSignStart: function () {
+    if (this.data.needJudge[this.data.selectedJudgeIndex]['sicnuid'] === wx.getStorageSync('sicnuid')) {
+      wx.$errorToast("不需要也不能签到自己的展讲!");
+    } else {
+      this.submitSupplementSign();
+    }
+  },
+
+  /**
+   * 提交打分请求..
+   */
+  submitJudgeScore: function () {
+    wx.request({
+      // url: 'http://localhost:9090/v1/weixin/speech/judge',
+      url: 'http://api.sicnurpz.online/v1/weixin/speech/judge',
+      method: 'POST',
+      data: {
+        'aim_id': this.data.needJudge[this.data.selectedJudgeIndex]['_id'],
+        'openid': wx.getStorageSync('openid'),
+        'sicnuid': wx.getStorageSync('sicnuid'),
+        'score': this.data.score
+      },
+      success: (res) => {
+        console.log(res.data);
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          // 证明打分成功
+          // 从数组中除去这个已经打完分的
+          const _tempNeedJudge = this.data.needJudge.filter((item,index) => {
+            return index !== this.data.selectedJudgeIndex;
+          });
+          this.setData({
+            needJudge: _tempNeedJudge,
+          });
+          wx.$successToast('打分提交成功');
+        }
+      },
+      fail: (err) => {
+        console.log(err.errMsg);
+        wx.$errorToast('打分提交出错!');
+      }
+    });
   },
 
 })

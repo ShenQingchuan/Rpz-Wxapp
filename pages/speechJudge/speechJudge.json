@@ -4,6 +4,7 @@
     "l-list": "../miniprogram_npm/lin-ui/list",
     "l-toast": "../miniprogram_npm/lin-ui/toast",
     "l-icon": "../miniprogram_npm/lin-ui/icon",
-    "l-button": "../miniprogram_npm/lin-ui/button"
+    "l-button": "../miniprogram_npm/lin-ui/button",
+    "l-count-selector": "../miniprogram_npm/lin-ui/count-selector"
   }
 }

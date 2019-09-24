@@ -42,8 +42,22 @@
         </text>
       </view>
     </l-list>
+
+    <!-- 打分卡 -->
+    <view class="container bold-text">
+      <text>👉 快来打分吧! （可手动输入）</text>
+      <l-count-selector class="judge-score"
+        bind:lintap="onScoreChange"
+        count="{{score}}"
+        min="10"
+        max="100"
+        step="5"/>
+      <l-button class="container" bind:lintap="submitJudgeScore"
+      type="success" shape="semicircle">确认提交</l-button>
+    </view>
   </view>
 
+  <!-- 补签卡 -->
   <l-card wx:else
     type="primary" 
     image="https://rpzoss.oss-cn-chengdu.aliyuncs.com/Public/9-23-2019-c62a-iatixpm9684652.jpg"
@@ -57,7 +71,7 @@
     <l-button l-class="supsigntip-btn"
       icon="backward" icon-size="30" icon-color="#fff"
       size="medium" shape="semicircle" 
-      bind:lintap="submitSupplementSign">
+      bind:lintap="onSupplementSignStart">
       <text> 我要补签 </text>
     </l-button>
   </l-card>
