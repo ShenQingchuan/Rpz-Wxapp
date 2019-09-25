@@ -16,6 +16,10 @@
 .speech-speaker text, .speech-topic text {
   font-weight: bold;
 }
+.judge-tips {
+  color: #2550a2;
+  font-size: 26rpx;
+}
 .current-info-text {
   color: slategrey;
 }
@@ -26,7 +30,7 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  width: 85%;
+  width: 92%;
 }
 .sign-btn {
   padding: 20rpx 0;
@@ -37,4 +41,7 @@
   margin-top: 44rpx;
   justify-content: flex-start;
 }
-
+.selfInputBtn {
+  margin-left: 16rpx;
+  font-size: 22rpx !important;
+}

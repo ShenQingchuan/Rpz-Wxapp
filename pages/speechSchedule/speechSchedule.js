@@ -90,7 +90,6 @@ Page({
     let _d = new Date(time_string);
     const result = _d.toLocaleDateString().split('/').join('-')
       + ' ' + _d.toTimeString().split(' ')[0];
-    console.log(result);
     return result;
   },
 

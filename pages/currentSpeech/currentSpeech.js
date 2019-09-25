@@ -14,8 +14,15 @@ Page({
 
     // 签到相关
     didMeSign: false,
+    input_name: '',
     input_sicnuid: '',
     signedList: [],
+    name_rules: [{
+      required: true,
+      min: 2,
+      max: 5,
+      message: '姓名长度限制2-5个数字！'
+    }],
     sicnuid_rules: [{
       required: true,
       min: 10,
@@ -92,8 +99,8 @@ Page({
    */
   flushCurrentSignedList: function() {
     wx.request({
-      // url: 'http://localhost:9090/v1/weixin/speech/signedList/' + this.data.current_speechid,
-      url: 'https://api.sicnurpz.online/v1/weixin/speech/signedList/' + this.data.current_speechid,
+      url: 'http://localhost:9090/v1/weixin/speech/signedList/' + this.data.current_speechid,
+      // url: 'https://api.sicnurpz.online/v1/weixin/speech/signedList/' + this.data.current_speechid,
       method: 'GET',
       success: (res) => {
         if (wx.$ratelimitGuard(res.statusCode)) return;
@@ -141,9 +148,10 @@ Page({
       method: 'POST',
       data: {
         speechid: this.data.current_speechid,
-        name: wx.getStorageSync("truename"),
+        name: this.data.input_name,
+        sign_sicnuid: this.data.input_sicnuid,
         openid: wx.getStorageSync("openid"),
-        sicnuid: this.data.input_sicnuid,
+        own_sicnuid: wx.getStorageSync("sicnuid"),
       },
       success: (res) => {
         if (wx.$ratelimitGuard(res.statusCode)) return;
@@ -159,6 +167,11 @@ Page({
         } else if (res.statusCode === 406) {
           // 406 说明 POST 请求提交字段不完整
           wx.$errorToast(`签到失败!提交数据不完整`);
+          this.clearForm();
+        } else if (res.statusCode === 404) {
+          // 406 说明 POST 请求提交字段不完整
+          wx.$errorToast(`签到干事不存在！`);
+          this.clearForm();
         }
       },
       fail: (err) => {
@@ -169,15 +182,21 @@ Page({
   },
 
   /**
-   * 填写学号的绑定事件：
+   * 填写学号、姓名的绑定事件：
    */
   inputSignSicnuid: function(e) {
     this.setData({
       input_sicnuid: e.detail.value
     });
   },
+  inputSignName: function(e) {
+    this.setData({
+      input_name: e.detail.value
+    });
+  },
+
   /**
-   * 检验填写的学号：
+   * 检验填写的学号、姓名：
    */
   validate_sicnuid_input: function(e) {
     if (e.detail.isError) {
@@ -188,6 +207,35 @@ Page({
         input_sicnuid: '',
       });
     }
+  },
+  validate_name_input: function (e) {
+    if (e.detail.isError) {
+      for (let i = 0; i < e.detail.errors.length; i++) {
+        wx.$errorToast(e.detail.errors[i].message);
+      }
+      this.setData({
+        input_name: '',
+      });
+    }
+  },
+
+  /**
+   * 本人签到时一键填入用户信息
+   */
+  selfSignInput: function () {
+    this.setData({
+      input_name: wx.getStorageSync("truename"),
+      input_sicnuid: wx.getStorageSync("sicnuid"),
+    });
+  },
+  /**
+   * 清空输入框
+  */
+  clearForm: function () {
+    this.setData({
+      input_name: '',
+      input_sicnuid: '',
+    })
   },
 
 })

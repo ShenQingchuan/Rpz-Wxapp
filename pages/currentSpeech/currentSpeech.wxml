@@ -12,15 +12,36 @@
     <view class="speech-topic">
       当前进行展讲的主题是：<text class="current-info-text">{{current_title}}</text>
     </view>
+    <view class="judge-tips">
+      🔔听完展讲后不要忘记打分哦!
+    </view>
     <view class="speech-sign flex-container" wx:if="{{!didMeSign}}">
       <text>快点这里签到吧！</text>
+      <l-input label="姓名:" bind:linvalidate="validate_name_input" 
+        required="{{true}}" 
+        width="690"
+        value="{{input_name}}"
+        rules="{{name_rules}}"
+        placeholder="请填写姓名以完成签到" 
+        bind:linchange="inputSignName">
+        <l-button wx:if="{{ input_name.length === 0 }}"
+          slot="right"
+          special="{{true}}"
+          bind:lintap="selfSignInput"
+        >
+          自动填我自己
+        </l-button>
+      </l-input>
       <l-input label="学号:" bind:linvalidate="validate_sicnuid_input" 
         required="{{true}}" 
+        width="690"
         value="{{input_sicnuid}}"
         rules="{{sicnuid_rules}}"
         placeholder="请填写学号以完成签到" 
         bind:linchange="inputSignSicnuid"  />
-      <l-button special="{{true}}" bind:lintap="onSignStart">
+      <l-button special="{{true}}" 
+        class="selfInputBtn"
+        bind:lintap="onSignStart">
         <!-- 此处是插槽自定义内容 -->
         <view class="sign-btn flex-container">
           <l-icon name="checked" size="55" />
