@@ -20,6 +20,11 @@
   display: flex;
   margin-top: 30rpx !important;
 }
+.judge-card-title {
+  color: purple !important;
+  font-weight: bold;
+  text-shadow: 1rpx 1rpx 1rpx #596c8e;
+}
 .list-right-slot {
   font-size: 26rpx;
   font-weight: bold;

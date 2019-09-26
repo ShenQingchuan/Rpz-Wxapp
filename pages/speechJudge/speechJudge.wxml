@@ -28,6 +28,7 @@
 <l-card wx:if="{{needJudge.length > 0}}"
   type="primary" 
   class="container"
+  l-title-class="judge-card-title"
   plaintext="{{true}}" 
   title="{{'👉选择的是: ' + needJudge[selectedJudgeIndex]['title']}}">
   
